@@ -20,6 +20,9 @@ mover_archivos_de_rama.txt
 Git_Flow.png
 *.code-workspace
 
+contactos.service.spec.ts
+app.component.spec.ts
+
 #Github Node gitignore
 #*node_modules/
 #*.angular/
