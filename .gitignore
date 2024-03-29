@@ -19,3 +19,7 @@ build/
 mover_archivos_de_rama.txt
 Git_Flow.png
 *.code-workspace
+
+#Github Node gitignore
+#*node_modules/
+#*.angular/
