@@ -1,0 +1,21 @@
+# Archivos generados por IntelliJ IDEA
+.idea/
+
+# Archivos generados por Visual Studio Code
+.vscode/
+
+# Carpeta de salida de la compilación
+target/
+
+# Carpeta de salida de la compilación de Maven
+build/
+
+# Archivos de log
+*.log
+
+# Archivos de datos temporales
+*.tmp
+
+mover_archivos_de_rama.txt
+Git_Flow.png
+*.code-workspace
