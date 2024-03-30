@@ -2,6 +2,8 @@
 
 Implementación del microservicio de ejercicios y rutinas definidas por los entrenadores para la asignatura de Sistemas de Información para Internet.
 
+CRUD de ejercicios y rutinas definidas por los entrenadores para los clientes que supervisan. Permitirá a los entrenadores definir ejercicios añadiendo una descripción, foto y vídeo (enlace a vídeo en alguna plataforma como YouTube o Vimeo). También permitirá la creación de rutinas, que son ejercicios agrupados en series con una duración o un número de repeticiones.
+
 ## Etapa del proyecto
 
 ### Frontend
