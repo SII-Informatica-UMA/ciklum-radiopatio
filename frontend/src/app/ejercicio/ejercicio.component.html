@@ -1,1 +1,23 @@
-<p>ejercicio works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-4" id="seccion1">
+        <!-- Contenido del primer div -->
+        <h2>GYM</h2>
+        <p>"El momento de cambiar tu vida es ahora"</p>
+      </div>
+      <div class="col-md-4" id="seccion2">
+        <h2>EJERCICIOS</h2>
+        <div class="list-group">
+            <button *ngFor="let ejercicio of ejercicios"
+              class="list-group-item list-group-item-action"
+              (click)="elegirEjercicio(ejercicio)"
+              [class.active]="ejercicio === ejercicioElegido">{{ejercicio.nombre}}</button>
+          </div>
+      </div>
+      <div class="col-md-4" id="seccion3">
+        <!-- Contenido del tercer div -->
+        
+        <p>Contenido de la tercera sección.</p>
+      </div>
+    </div>
+  </div>
