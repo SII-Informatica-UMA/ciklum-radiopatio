@@ -4,17 +4,19 @@
   
   #seccion1 {
     height: 280px; /* Establecer un ancho del 30% para la primera sección */
-    color: red;
+    background-color: #121116;
 }
   
   #seccion2 {
     height: 800px; /* Establecer un ancho del 40% para la segunda sección */
-  }
+    background-color: #25292c;
+}
   
   #seccion3 {
-    height: 200px; /* Establecer un ancho del 30% para la tercera sección */
-  }
+    height: 250px; /* Establecer un ancho del 30% para la tercera sección */
+    background-color: #1d2124;
+}
   button {
-    padding-bottom: 20 px;
+    padding-bottom: 20px;
     margin-right: 20px;
 }
