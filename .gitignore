@@ -26,6 +26,8 @@ microservicio_frontend_usuarios.jpg
 contactos.service.spec.ts
 app.component.spec.ts
 
+comandos_basicos_GIT.txt
+
 #Github Node gitignore
 #*node_modules/
 #*.angular/

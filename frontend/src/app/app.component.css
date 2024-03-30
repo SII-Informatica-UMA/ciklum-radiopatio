@@ -1,0 +1,17 @@
+.seccion {
+    border: 5px solid #6b2e2e; /* Agregar un borde para visualizar mejor las secciones */
+  }
+  
+  #seccion1 {
+    height: 280px; /* Establecer un ancho del 30% para la primera sección */
+    color: red;
+}
+  
+  #seccion2 {
+    height: 800px; /* Establecer un ancho del 40% para la segunda sección */
+  }
+  
+  #seccion3 {
+    height: 200px; /* Establecer un ancho del 30% para la tercera sección */
+  }
+  
