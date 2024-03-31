@@ -1,3 +1,9 @@
 import { Routes } from '@angular/router';
+import { EjercicioComponent } from './ejercicio/ejercicio.component';
+import { RutinasComponent } from './rutinas/rutinas.component';
 
-export const routes: Routes = [];
+/* array de objetos con las rutas del resto de componentes */
+export const routes: Routes = [
+    {path: 'ejercicio', component: EjercicioComponent},
+    {path: 'rutina', component: RutinasComponent},
+];
