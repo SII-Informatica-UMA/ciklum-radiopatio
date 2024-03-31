@@ -1,23 +1,16 @@
 <div class="container">
-    <div class="row">
-      <div class="col-md-4" id="seccion1">
-        <!-- Contenido del primer div -->
-        <h2>GYM</h2>
-        <p>"El momento de cambiar tu vida es ahora"</p>
-      </div>
-      <div class="col-md-4" id="seccion2">
-        <h2>EJERCICIOS</h2>
-        <div class="list-group">
-            <button *ngFor="let ejercicio of ejercicios"
-              class="list-group-item list-group-item-action"
-              (click)="elegirEjercicio(ejercicio)"
-              [class.active]="ejercicio === ejercicioElegido">{{ejercicio.nombre}}</button>
-          </div>
-      </div>
-      <div class="col-md-4" id="seccion3">
-        <!-- Contenido del tercer div -->
-        
-        <p>Contenido de la tercera sección.</p>
-      </div>
+  <div class="row">
+    <h2>Lista de ejercicios</h2>
+  </div>
+  <div class="row">
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+        The current link item
+      </a>
+      <a href="#" class="list-group-item list-group-item-action custom-bg-color">A second link item</a>
+      <a href="#" class="list-group-item list-group-item-action custom-bg-color">A third link item</a>
+      <a href="#" class="list-group-item list-group-item-action custom-bg-color">A fourth link item</a>
+      <!-- usar RouterLink para acceder a las cosas sin actualizar la pagina (SPA: single page application)-->
     </div>
   </div>
+</div>

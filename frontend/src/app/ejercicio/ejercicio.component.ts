@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Ejercicio } from './ejercicio';
 
 @Component({
@@ -8,11 +8,9 @@ import { Ejercicio } from './ejercicio';
   templateUrl: './ejercicio.component.html',
   styleUrl: './ejercicio.component.css',
 })
-export class EjercicioComponent {
-  ejercicios: Ejercicio [] = [];
-  ejercicioElegido?: Ejercicio;
+export class EjercicioComponent implements OnInit {
+  constructor(){ }
 
-  elegirEjercicio(ejercicio: Ejercicio): void {
-    this.ejercicioElegido = ejercicio;
-  }
+  ngOnInit(): void { }
+  
 }
