@@ -1,22 +1,28 @@
-.seccion {
-    border: 5px solid #6b2e2e; /* Agregar un borde para visualizar mejor las secciones */
-  }
-  
-  #seccion1 {
+.container{
+  max-width: 100%;
+}
+#seccion1 {
     height: 280px; /* Establecer un ancho del 30% para la primera sección */
     background-color: #121116;
 }
   
-  #seccion2 {
+#seccion2 {
     height: 800px; /* Establecer un ancho del 40% para la segunda sección */
     background-color: #25292c;
+    text-align: center;
 }
   
-  #seccion3 {
+#seccion3 {
     height: 250px; /* Establecer un ancho del 30% para la tercera sección */
     background-color: #1d2124;
 }
-  button {
-    padding-bottom: 20px;
-    margin-right: 20px;
+#seccion4 {
+  height: 150px; /* Establecer un ancho del 30% para la tercera sección */
+  background-color: #2e3439;
+}
+
+button {
+  margin-top: 20px;
+    margin-right: 80px;
+    margin-left: 80px;
 }
