@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,9 +11,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  constructor(private modalService: NgbModal) {}
-  title = 'ejercicios_rutinas';
-  abrirModalEjercicios() {
-  let ref = this.modalService.open(EjercicioComponent);
+  constructor(private router: Router) { }
+
+  verLista() {
+    this.router.navigate(['/ejercicio']); // Navega a la ruta '/ejercicio' cuando se hace clic en el botón
   }
+  
 }

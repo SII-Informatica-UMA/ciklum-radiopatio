@@ -5,7 +5,7 @@
     </div>
 
     <div id="seccion2">
-      <button type="button" class="btn btn-dark" id="boton_ejercicio">EJERCICIOS</button>
+      <button (click)="verLista()" class="btn btn-dark" id="boton_ejercicio">EJERCICIOS</button>
       <button type="button" class="btn btn-dark" id="boton_rutina">RUTINAS</button>
       <!--<i class="bi bi-bookmark"></i> -->
     </div>
@@ -19,3 +19,6 @@
     </div>
   </div>
 </div>
+<!-- Es una directiva proporcionada por Angular que se utiliza en las plantillas HTML para indicar dónde se deben renderizar 
+  los componentes correspondientes a las rutas definidas en la configuración del enrutador. -->
+<router-outlet></router-outlet>
