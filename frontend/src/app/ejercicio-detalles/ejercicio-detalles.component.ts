@@ -2,6 +2,7 @@ import { Component,Input, Output, EventEmitter } from '@angular/core';
 import { Ejercicio } from '../ejercicio/ejercicio';
 import { EjercicioService } from '../ejercicio/ejercicio.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { EjercicioEditarComponent } from '../ejercicio-editar/ejercicio-editar.component';
 @Component({
   selector: 'app-ejercicio-detalles',
   standalone: true,
@@ -16,6 +17,9 @@ export class EjercicioDetallesComponent {
 
   constructor(private ejerciciosService: EjercicioService, private modalService: NgbModal) { }
 
+  editarEjercicio(): void{
+    const modalRef = this.modalService.open(EjercicioEditarComponent);
+  }
 
   eliminarEjercicio(): void {
     this.ejercicioEliminado.emit(this.ejercicio?.id);

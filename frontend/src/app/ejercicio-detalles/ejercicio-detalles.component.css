@@ -1,12 +1,24 @@
-
 .container {
-    position: fixed; /* Posición absoluta */
-    top: 350px; /* Se coloca en la parte superior de la página */
-    left: 50%; /* Ajusta la posición izquierda si es necesario */
-    width: 100%;
-    background-color: white;
-    
+    position: fixed; 
+    top: 385px; /* Se coloca en la parte superior de la página */
+    left: 60%; /* Ajusta la posición izquierda si es necesario */
+    width: 20%;
+    background-color: #1d2124;
+    color: aliceblue;
 }
 
+h2 {
+    font-weight: bold;
+    text-align: center;
+}
 
+.col-md-3 {
+    color: #73828e;
+}
+
+#boton_eliminar {
+    margin: 10px;
+    margin-top: 10px;
+    color: aliceblue;
+}
 
