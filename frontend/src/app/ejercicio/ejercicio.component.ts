@@ -5,6 +5,7 @@ import { EjercicioService } from './ejercicio.service';
 import { CommonModule } from '@angular/common';
 import { EjercicioDetallesComponent } from '../ejercicio-detalles/ejercicio-detalles.component';
 import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-formulario.component';
+
 @Component({
   selector: 'app-ejercicio',
   standalone: true,
@@ -19,7 +20,7 @@ export class EjercicioComponent implements OnInit {
   ejercicioElegido?: Ejercicio;
 
 
-  constructor(private ejercicioService: EjercicioService, private modalService: NgbModal, private router: Router) { }
+  constructor(private ejercicioService: EjercicioService, private modalService: NgbModal) { }
   ngOnInit(): void {
     this.ejercicios = this.ejercicioService.getEjercicios();
   }
