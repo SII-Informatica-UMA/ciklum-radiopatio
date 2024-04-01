@@ -5,11 +5,12 @@ import { Ejercicio } from './ejercicio';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EjercicioService {
   private ejercicios: Ejercicio []=[
-      {id: 1, nombre: 'sentadilla', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
-      {id: 2, nombre: 'flexion', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
-      {id: 3, nombre: 'dominada', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 1, nombre: 'Sentadillas', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 2, nombre: 'Flexiones', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
+      {id: 3, nombre: 'Dominadas', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
     ];
   constructor() { }
 

@@ -9,7 +9,7 @@ import { Router, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-ejercicio',
   standalone: true,
-  imports: [CommonModule,EjercicioDetallesComponentRouterOutlet],
+  imports: [CommonModule,EjercicioDetallesComponent, RouterOutlet],
   templateUrl: './ejercicio.component.html',
   styleUrl: './ejercicio.component.css',
 })
@@ -38,8 +38,6 @@ export class EjercicioComponent implements OnInit {
     this.ejercicios = this.ejercicioService.getEjercicios();
     this.ejercicioElegido = undefined;
   }
-  /* constructor(private router: Router) { } */
-
 
   /* funcion para acceder a las cosas sin actualizar la pagina (SPA: single page application) */
   verEjercicioDetalles() {
