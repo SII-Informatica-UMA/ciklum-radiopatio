@@ -4,13 +4,17 @@
   </div>
   <div class="row">
     <div class="list-group list-group-scroll">
-      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action" aria-current="true">
-        The current link item
-      </button>
-      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action custom-bg-color">A second link item</button>
-      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action custom-bg-color">A third link item</button>
-      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action custom-bg-color">A fourth link item</button>
-      <!-- usar RouterLink para acceder a las cosas sin actualizar la pagina (SPA: single page application)-->
+      <button *ngFor="let ejercicio of ejercicios"
+        class="list-group-item list-group-item-action"
+        (click)="elegirEjercicio(ejercicio)"
+        [class.active]="ejercicio === ejercicioElegido">{{ejercicio.nombre}}</button>
+    </div>
+    <div class="col-md-6" *ngIf="ejercicioElegido">
+      <app-ejercicio-detalles [ejercicio]="ejercicioElegido"
+        (ejercicioEditado)="ejercicioEditado($event)"
+        (ejercicioEliminado)="eliminarEjercicio($event)"
+        ></app-ejercicio-detalles>
+        
     </div>
   </div>
 </div>
