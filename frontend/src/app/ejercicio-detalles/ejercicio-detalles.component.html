@@ -1,1 +1,33 @@
-<p>ejercicio-detalles works!</p>
+<div class="container">
+    <div class="row white-background">
+      <h2 >Detalles de {{ejercicio?.nombre}}</h2>
+    </div>
+  
+  <div class="row white-background">
+    <label class="col-md-3" for="nombre">Nombre:</label>
+    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.nombre}}</span>
+  </div>
+  <div class="row">
+    <label class="col-md-3" for="descripcion">Descripcion:</label>
+    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.descripcion}}</span>
+  </div>
+  <div class="row">
+    <label class="col-md-3" for="descripcion">Materiales:</label>
+    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.materiales}}</span>
+  </div>
+  <div class="row">
+    <label class="col-md-3" for="descripcion">Enlace:</label>
+    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.enlace}}</span>
+  </div>
+  <div class="row">
+    <label class="col-md-3" for="descripcion">Carga:</label>
+    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.carga}}</span>
+  </div>
+  
+  <div class="row">
+    <button class="col-auto btn btn-outline-primary" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
+    <div class="col-1"></div>
+
+  </div>
+  
+  </div>
