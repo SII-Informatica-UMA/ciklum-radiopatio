@@ -4,6 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { EjercicioService } from './ejercicio.service';
 import { CommonModule } from '@angular/common';
 import { EjercicioDetallesComponent } from '../ejercicio-detalles/ejercicio-detalles.component';
+import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-formulario.component';
 @Component({
   selector: 'app-ejercicio',
   standalone: true,
@@ -35,5 +36,14 @@ export class EjercicioComponent implements OnInit {
     this.ejercicioService.eliminarEjercicios(id);
     this.ejercicios = this.ejercicioService.getEjercicios();
     this.ejercicioElegido = undefined;
+  }
+  aniadirEjercicio(): void {
+    let ref = this.modalService.open(EjercicioFormularioComponent);
+    ref.componentInstance.accion = "Añadir";
+    ref.componentInstance.ejercicio = {id: 0, nombre: '', descripcion: '', materiales: '', enlace: '', carga:''};
+    ref.result.then((ejercicio: Ejercicio) => {
+      this.ejercicioService.addEjercicios(ejercicio);
+      this.ejercicios = this.ejercicioService.getEjercicios();
+    }, (reason) => {});
   }
 }

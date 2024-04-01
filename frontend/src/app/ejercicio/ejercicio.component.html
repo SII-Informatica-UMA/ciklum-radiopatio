@@ -9,6 +9,7 @@
         (click)="elegirEjercicio(ejercicio)"
         [class.active]="ejercicio === ejercicioElegido">{{ejercicio.nombre}}</button>
     </div>
+    <button type="button" class="btn btn-outline-primary bi bi-plus-circle-fill" (click)="aniadirEjercicio()">Crear ejercicio</button>
     <div class="col-md-6" *ngIf="ejercicioElegido">
       <app-ejercicio-detalles [ejercicio]="ejercicioElegido"
         (ejercicioEditado)="ejercicioEditado($event)"

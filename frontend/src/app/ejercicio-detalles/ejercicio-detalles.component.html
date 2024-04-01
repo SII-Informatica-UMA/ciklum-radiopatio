@@ -25,9 +25,10 @@
   </div>
   
   <div class="row">
-    <button class="col-auto btn btn-outline-primary" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
+    <button class="col-auto btn btn-outline-danger bi bi-x" (click)="eliminarEjercicio()">Eliminar</button>
     <div class="col-1"></div>
-
+  <button class="col-auto btn btn-outline-primary" (click)="editarEjercicio()">Editar<i class="bi bi-pencil-fill"></i></button>
+    <!-- al hacer click llama al metodo de editarEjercicio del component-->
   </div>
   
   </div>
