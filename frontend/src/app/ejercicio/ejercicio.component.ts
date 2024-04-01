@@ -4,12 +4,11 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { EjercicioService } from './ejercicio.service';
 import { CommonModule } from '@angular/common';
 import { EjercicioDetallesComponent } from '../ejercicio-detalles/ejercicio-detalles.component';
-import { Router, RouterOutlet } from '@angular/router';
-
+import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-formulario.component';
 @Component({
   selector: 'app-ejercicio',
   standalone: true,
-  imports: [CommonModule,EjercicioDetallesComponent, RouterOutlet],
+  imports: [CommonModule,EjercicioDetallesComponent],
   templateUrl: './ejercicio.component.html',
   styleUrl: './ejercicio.component.css',
 })
@@ -38,10 +37,13 @@ export class EjercicioComponent implements OnInit {
     this.ejercicios = this.ejercicioService.getEjercicios();
     this.ejercicioElegido = undefined;
   }
-
-  /* funcion para acceder a las cosas sin actualizar la pagina (SPA: single page application) */
-  verEjercicioDetalles() {
-    this.router.navigate(['/ejercicio-detalles']); // Navega a la ruta '/ejercicio-detalles' cuando se hace clic en el botón
+  aniadirEjercicio(): void {
+    let ref = this.modalService.open(EjercicioFormularioComponent);
+    ref.componentInstance.accion = "Añadir";
+    ref.componentInstance.ejercicio = {id: 0, nombre: '', descripcion: '', materiales: '', enlace: '', carga:''};
+    ref.result.then((ejercicio: Ejercicio) => {
+      this.ejercicioService.addEjercicios(ejercicio);
+      this.ejercicios = this.ejercicioService.getEjercicios();
+    }, (reason) => {});
   }
-  
 }
