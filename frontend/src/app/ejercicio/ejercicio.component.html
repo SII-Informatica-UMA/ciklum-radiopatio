@@ -3,13 +3,13 @@
     <h2>Lista de ejercicios</h2>
   </div>
   <div class="row">
-    <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+    <div class="list-group list-group-scroll">
+      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action" aria-current="true">
         The current link item
-      </a>
-      <a href="#" class="list-group-item list-group-item-action custom-bg-color">A second link item</a>
-      <a href="#" class="list-group-item list-group-item-action custom-bg-color">A third link item</a>
-      <a href="#" class="list-group-item list-group-item-action custom-bg-color">A fourth link item</a>
+      </button>
+      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action custom-bg-color">A second link item</button>
+      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action custom-bg-color">A third link item</button>
+      <button type="button" (click)="verEjercicioDetalles()" class="list-group-item list-group-item-action custom-bg-color">A fourth link item</button>
       <!-- usar RouterLink para acceder a las cosas sin actualizar la pagina (SPA: single page application)-->
     </div>
   </div>

@@ -1,3 +1,7 @@
+.list-group-scroll {
+    max-height: 200px; /* Establece la altura máxima del list group */
+    overflow-y: auto; /* Hace que se muestre una barra de scroll vertical si es necesario */
+}
 .container {
     position: absolute; /* Posición absoluta */
     top: 350px; /* Se coloca en la parte superior de la página */
