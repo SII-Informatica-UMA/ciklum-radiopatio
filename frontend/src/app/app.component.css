@@ -1,11 +1,17 @@
 .container{
   max-width: 100%;
 }
+
 #seccion1 {
-    height: 280px; /* Establecer un ancho del 30% para la primera sección */
+    height: 400%;
     background-color: #121116;
 }
-  
+
+.carousel-item {
+  width: 100%;
+  height:400%;
+}
+
 #seccion2 {
     height: 800px; /* Establecer un ancho del 40% para la segunda sección */
     background-color: #25292c;
@@ -26,3 +32,4 @@ button {
     margin-right: 80px;
     margin-left: 80px;
 }
+

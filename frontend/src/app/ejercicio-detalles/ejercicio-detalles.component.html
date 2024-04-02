@@ -23,13 +23,12 @@
     <label class="col-md-3" for="descripcion">Carga:</label>
     <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.carga}}</span>
   </div>
-  
-  <div class="row">
-    <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
-    <div class="col-md-3">
-  </div>
 
   <div class="row">
-    <button class="col-auto btn btn-primary" id="boton_eliminar" (click)="editarEjercicio()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
     <div class="col-md-3">
+      <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
+    </div>
+    <div class="col-md-3">
+      <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarEjercicio()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
+    </div>
   </div>

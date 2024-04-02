@@ -1,10 +1,12 @@
 .container {
-    position: fixed; 
-    top: 385px; /* Se coloca en la parte superior de la página */
-    left: 60%; /* Ajusta la posición izquierda si es necesario */
-    width: 20%;
+    top: 500px; /* Se coloca en la parte superior de la página */
+    width: 250%;
     background-color: #1d2124;
     color: aliceblue;
+    margin-left: 70%;
+    border-style:solid;
+    border-image: url('../../assets/difuminao.avif') 2 round;
+    border-width: 2px;
 }
 
 h2 {
@@ -20,5 +22,11 @@ h2 {
     margin: 10px;
     margin-top: 10px;
     color: aliceblue;
+
 }
 
+#boton_editar {
+    margin: 10px;
+    margin-top: 10px;
+    color: aliceblue;
+}
