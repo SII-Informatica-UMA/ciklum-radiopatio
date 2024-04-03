@@ -21,6 +21,7 @@ export class EjercicioComponent implements OnInit {
 
 
   constructor(private ejercicioService: EjercicioService, private modalService: NgbModal) { }
+  // al cargar la pagina, ngOnInit cargara directamente la lista de ejercicios
   ngOnInit(): void {
     this.ejercicios = this.ejercicioService.getEjercicios();
   }
