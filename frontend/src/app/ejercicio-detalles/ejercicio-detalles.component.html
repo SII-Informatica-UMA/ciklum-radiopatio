@@ -12,16 +12,23 @@
     <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.descripcion}}</span>
   </div>
   <div class="row">
-    <label class="col-md-3" for="descripcion">Materiales:</label>
+    <label class="col-md-3" for="materiales">Materiales:</label>
     <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.materiales}}</span>
   </div>
   <div class="row">
-    <label class="col-md-3" for="descripcion">Enlace:</label>
-    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.enlace}}</span>
+    <label class="col-md-3" for="carga">Carga:</label>
+    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.carga}}</span>
   </div>
   <div class="row">
-    <label class="col-md-3" for="descripcion">Carga:</label>
-    <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.carga}}</span>
+    <label class="col-md-3" for="video">Video:</label>
+    <a *ngIf="ejercicio?.video" class="col-md-9 offset-2 offset-md-0"href="{{ejercicio?.video}}" target="_blank" >enlace a video</a>
+  </div>
+  <div class="row">
+    <label class="col-md-3" for="imagen">Imagen:</label>
+    <div class="col-md-9">
+      <img *ngIf="ejercicio?.imagen?.src" [src]="ejercicio?.imagen?.src" class="img-fluid" />
+      <span *ngIf="!ejercicio?.imagen?.src">No hay imagen seleccionada</span>
+    </div>
   </div>
 
   <div class="row">
