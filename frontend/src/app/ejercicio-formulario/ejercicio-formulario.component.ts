@@ -16,6 +16,4 @@ export class EjercicioFormularioComponent {
   guardarEjercicio(): void {
     this.modal.close(this.ejercicio);
   }
-
-
 }

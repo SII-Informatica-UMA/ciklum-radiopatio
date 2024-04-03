@@ -9,6 +9,15 @@
     border-width: 2px;
 }
 
+.container .row {
+    white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
+}
+
+.list-container {
+    max-height: 300px; /* Establece la altura máxima del contenedor */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+}
+
 h2 {
     font-weight: bold;
     text-align: center;
