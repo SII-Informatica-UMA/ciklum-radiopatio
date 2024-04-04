@@ -7,7 +7,7 @@
         <label for="nombre">Nombre:</label>
         <input class="form-control" id="nombre" [(ngModel)]="ejercicio.nombre" placeholder="Nombre">
         <label for="descripcion">Descripcion:</label>
-        <input class="form-control" id="descripcion" [(ngModel)]="ejercicio.descripcion" placeholder="Breve descripcion del ejercicio">
+        <textarea class="form-control" id="descripcion" [(ngModel)]="ejercicio.descripcion" placeholder="Breve descripcion del ejercicio" rows="5"></textarea>
         <label for="materiales">Materiales:</label>
         <input class="form-control" id="materiales" [(ngModel)]="ejercicio.materiales" placeholder="Materiales necesarios">
         <label for="carga">Carga:</label>
