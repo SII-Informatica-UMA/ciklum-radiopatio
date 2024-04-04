@@ -10,14 +10,8 @@
 }
 
 .list-container {
-
     max-height: 590px; /* Altura máxima del listado de ejercicios con scroll */
     overflow-y: scroll; /* Mostrar barra de desplazamiento vertical si es necesario */
-    overflow-x: auto; 
-}
-
-.container .row {
-    white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
 }
 
 h2 {

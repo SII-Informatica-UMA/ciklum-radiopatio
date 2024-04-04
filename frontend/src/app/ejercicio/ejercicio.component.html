@@ -11,6 +11,7 @@
     <div class="col-md-6" *ngIf="ejercicioElegido">
       <app-ejercicio-detalles [ejercicio]="ejercicioElegido" (ejercicioEditado)="ejercicioEditado($event)" (ejercicioEliminado)="eliminarEjercicio($event)"></app-ejercicio-detalles> 
     </div>
+  </div>
   <div class="row">
     <div class="col-md-6">
       <button id="boton_aniadir" type="button" class="btn btn-primary" (click)="aniadirEjercicio()">Añadir ejercicio <i class="bi bi-plus-circle"></i></button>
