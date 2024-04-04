@@ -1,10 +1,10 @@
 .container{
   max-width: 100%;
+  overflow-x: scroll;
 }
 
 .container .row {
   white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
-  overflow-x: scroll;
 }
 
 .carousel-item {

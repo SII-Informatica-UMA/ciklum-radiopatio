@@ -1,5 +1,5 @@
 .container {
-    top: 500px; /* Se coloca en la parte superior de la página */
+    top: 20px; /* Se coloca en la parte superior de la página */
     width: 250%;
     background-color: #1d2124;
     color: aliceblue;
@@ -7,6 +7,13 @@
     border-style:solid;
     border-image: url('../../assets/difuminao.avif') 2 round;
     border-width: 2px;
+}
+
+.list-container {
+
+    max-height: 590px; /* Altura máxima del listado de ejercicios con scroll */
+    overflow-y: scroll; /* Mostrar barra de desplazamiento vertical si es necesario */
+    overflow-x: auto; 
 }
 
 .container .row {

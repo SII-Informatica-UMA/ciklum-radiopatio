@@ -5,15 +5,15 @@
   <div class="modal-body">
     <div class="form-group">
         <label for="nombre">Nombre:</label>
-        <input class="form-control" id="nombre" [(ngModel)]="ejercicio.nombre" placeholder="nombre">
+        <input class="form-control" id="nombre" [(ngModel)]="ejercicio.nombre" placeholder="Nombre">
         <label for="descripcion">Descripcion:</label>
         <input class="form-control" id="descripcion" [(ngModel)]="ejercicio.descripcion" placeholder="Breve descripcion del ejercicio">
         <label for="materiales">Materiales:</label>
-        <input class="form-control" id="materiales" [(ngModel)]="ejercicio.materiales" placeholder="materiales necesarios">
+        <input class="form-control" id="materiales" [(ngModel)]="ejercicio.materiales" placeholder="Materiales necesarios">
         <label for="carga">Carga:</label>
-        <input class="form-control" id="carga" [(ngModel)]="ejercicio.carga" placeholder="carga">
+        <input class="form-control" id="carga" [(ngModel)]="ejercicio.carga" placeholder="Carga">
         <label for="video">Video:</label>
-        <input class="form-control" id="video" [(ngModel)]="ejercicio.video" placeholder="enlace a video" (blur)="validarUrl(ejercicio.video)" >
+        <input class="form-control" id="video" [(ngModel)]="ejercicio.video" placeholder="Enlace a video" (blur)="validarUrl(ejercicio.video)" >
         <label for="imagen">Imagen:</label>
         <input class="form-control" id="imagen" [(ngModel)]="ejercicio.imagen" type="file" (change)="onFileSelected($event)" accept="image/*" >
         
