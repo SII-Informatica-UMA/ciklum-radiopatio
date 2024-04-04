@@ -25,7 +25,7 @@ export class AppComponent {
   }
 
   verRutina() {
-    if(!this.viendoEjercicio){
+    if(!this.viendoRutinas){
       this.router.navigate(['/rutina']); // Navega a la ruta '/ejercicio' cuando se hace clic en el botón
       this.viendoRutinas = true;
       this.viendoEjercicio = false;
