@@ -10,9 +10,29 @@ import { Router, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   constructor(private router: Router) { }
+  viendoEjercicio = false;
+  viendoRutinas = false;
 
   verEjercicio() {
-    this.router.navigate(['/ejercicio']); // Navega a la ruta '/ejercicio' cuando se hace clic en el botón
+    if(!this.viendoEjercicio){
+      this.router.navigate(['/ejercicio']); // Navega a la ruta '/ejercicio' cuando se hace clic en el botón
+      this.viendoEjercicio = true;
+      this.viendoRutinas = false;
+    }else{
+      this.router.navigate(['/']); // Navega a la ruta '/ejercicio' cuando se hace clic en el botón
+      this.viendoEjercicio = false;
+    }
+  }
+
+  verRutina() {
+    if(!this.viendoEjercicio){
+      this.router.navigate(['/rutina']); // Navega a la ruta '/ejercicio' cuando se hace clic en el botón
+      this.viendoRutinas = true;
+      this.viendoEjercicio = false;
+    }else{
+      this.router.navigate(['/']); // Navega a la ruta '/ejercicio' cuando se hace clic en el botón
+      this.viendoRutinas = false;
+    }
   }
   
 }
