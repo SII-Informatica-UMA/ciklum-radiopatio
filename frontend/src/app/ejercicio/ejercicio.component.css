@@ -6,14 +6,20 @@
 }
 
 .container .row {
-    white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
+    white-space: normal; /* Evita que el contenido se divida en varias líneas */
 }
 
 h2 {
     color: aliceblue;
 }
 
-.list-group-scroll {
-    max-height: 300px; /* Altura máxima del listado de ejercicios con scroll */
-    overflow-y: visible; /* Mostrar barra de desplazamiento vertical si es necesario */
+.list-container {
+
+    max-height: 550px; /* Altura máxima del listado de ejercicios con scroll */
+    overflow-y: scroll; /* Mostrar barra de desplazamiento vertical si es necesario */
+    overflow-x: auto; 
   }
+
+#boton_aniadir {
+    margin-top: 20px;
+}

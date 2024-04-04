@@ -1,6 +1,5 @@
 .container{
   max-width: 100%;
-  
 }
 
 .container .row {
@@ -12,29 +11,43 @@
   width: 100%;
   height:400px;
 }
-
+/* ------------------------------------------------------------------------------------ */
 #seccion1 {
-    height: 400px;
-    background-color: #121116;
+  height: 400px;
+  background-color: #121116;
 }
 
+.carousel-caption {
+  top: 150px;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 70px;
+}
+
+p {
+  font-size: large;
+}
+/* ------------------------------------------------------------------------------------ */
 #seccion2 {
-    height: 800px; /* Establecer un ancho del 40% para la segunda sección */
-    background-color: #25292c;
-    text-align: center;
+  height: 800px; 
+  background-color: #25292c;
+  text-align: center;
 }
-  
+/* ------------------------------------------------------------------------------------ */
 #seccion3 {
-    height: 250px; /* Establecer un ancho del 30% para la tercera sección */
-    background-color: #1d2124;
+  height: 250px; 
+  background-color: #1d2124;
 }
+/* ------------------------------------------------------------------------------------ */
 #seccion4 {
-  height: 150px; /* Establecer un ancho del 30% para la tercera sección */
+  height: 150px; 
   background-color: #2e3439;
 }
 
 button {
   margin-top: 20px;
-    margin-right: 80px;
-    margin-left: 80px;
+  margin-right: 80px;
+  margin-left: 80px;
 }

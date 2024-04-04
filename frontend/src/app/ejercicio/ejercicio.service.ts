@@ -11,6 +11,21 @@ export class EjercicioService {
       {id: 1, nombre: 'Sentadillas', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
       {id: 2, nombre: 'Flexiones', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
       {id: 3, nombre: 'Dominadas', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 4, nombre: 'Sentadillas', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 5, nombre: 'Flexiones', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
+      {id: 6, nombre: 'Dominadas', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 7, nombre: 'Sentadillas', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 8, nombre: 'Flexiones', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
+      {id: 9, nombre: 'Dominadas', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 10, nombre: 'Sentadillas', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 11, nombre: 'Flexiones', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
+      {id: 12, nombre: 'Dominadas', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 13, nombre: 'Sentadillas', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 14, nombre: 'Flexiones', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
+      {id: 15, nombre: 'Dominadas', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 16, nombre: 'Sentadillas', descripcion: 'baja y subee sube y baja', materiales: 'la fe', enlace: '@formato_enlace', carga: 'fuerza'},
+      {id: 17, nombre: 'Flexiones', descripcion: 'baja y subee sube y baja', materiales: 'un santi', enlace: '@formato_enlace', carga: 'fuerzaQuenoTenmos'},
+      {id: 18, nombre: 'Dominadas', descripcion: 'ejercicio imposible', materiales: 'una barra', enlace: '@formato_enlace', carga: 'fuerza'},
     ];
   constructor() { }
 
