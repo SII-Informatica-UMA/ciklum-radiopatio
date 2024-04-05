@@ -1,8 +1,10 @@
-import {Ejercicio} from "../ejercicio/ejercicio"
 
-export interface Rutinas{
-    id : number,
-    nombre : string,
-    descripcion : string
-    ejercicios : Ejercicio[]
+import { FragmentoRutinaDTO } from "./fragmentoRutina"
+
+export interface RutinaDTO{
+    nombre? : string,
+    descripcion? : string,
+    observaciones? : string,
+    ejercicios? : Array<FragmentoRutinaDTO>
+    id? : number
 }
