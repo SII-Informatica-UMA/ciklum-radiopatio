@@ -1,5 +1,5 @@
 .container {
-    top: 500px; /* Se coloca en la parte superior de la página */
+    top: 20px; /* Se coloca en la parte superior de la página */
     width: 250%;
     background-color: #1d2124;
     color: aliceblue;
@@ -9,8 +9,9 @@
     border-width: 2px;
 }
 
-.container .row {
-    white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
+.list-container {
+    max-height: 590px; /* Altura máxima del listado de ejercicios con scroll */
+    overflow-y: scroll; /* Mostrar barra de desplazamiento vertical si es necesario */
 }
 
 h2 {
