@@ -9,6 +9,6 @@ export interface EjercicioDTO {
     material? : string
     dificultad? : string 
     multimedia? : Array<string>
-    id : number // ¿$int64?
+    id : number
     
   }
