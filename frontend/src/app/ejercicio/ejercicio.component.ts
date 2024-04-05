@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ejercicio } from './ejercicio';
+import { EjercicioDTO } from './ejercicio';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { EjercicioService } from './ejercicio.service';
 import { CommonModule } from '@angular/common';
@@ -16,8 +16,8 @@ import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-
 export class EjercicioComponent implements OnInit {
 
 
-  ejercicios: Ejercicio [] = [];
-  ejercicioElegido?: Ejercicio;
+  ejercicios: EjercicioDTO [] = [];
+  ejercicioElegido?: EjercicioDTO;
 
 
   constructor(private ejercicioService: EjercicioService, private modalService: NgbModal) { }
@@ -26,10 +26,10 @@ export class EjercicioComponent implements OnInit {
     this.ejercicios = this.ejercicioService.getEjercicios();
   }
 
-  elegirEjercicio(ejercicio: Ejercicio): void {
+  elegirEjercicio(ejercicio: EjercicioDTO): void {
     this.ejercicioElegido = ejercicio;
   }
-  ejercicioEditado(ejercicio: Ejercicio): void {
+  ejercicioEditado(ejercicio: EjercicioDTO): void {
     this.ejercicioService.editarEjercicios(ejercicio);
     this.ejercicios = this.ejercicioService.getEjercicios();
     this.ejercicioElegido = this.ejercicios.find(c => c.id == ejercicio.id);
@@ -42,8 +42,9 @@ export class EjercicioComponent implements OnInit {
   aniadirEjercicio(): void {
     let ref = this.modalService.open(EjercicioFormularioComponent);
     ref.componentInstance.accion = "Añadir";
-    ref.componentInstance.ejercicio = {id: 0, nombre: '', descripcion: '', materiales: '', carga:'', video:'', imagen:''};
-    ref.result.then((ejercicio: Ejercicio) => {
+    ref.componentInstance.ejercicio = {nombre : "", descripcion : "" , observaciones : "", tipo : "", musculosTrabajados : "", material : "",
+    dificultad : "", multimedia : [], id : 0};
+    ref.result.then((ejercicio: EjercicioDTO) => {
       this.ejercicioService.addEjercicios(ejercicio);
       this.ejercicios = this.ejercicioService.getEjercicios();
     }, (reason) => {});

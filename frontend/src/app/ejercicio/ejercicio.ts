@@ -1,12 +1,14 @@
-import { Img } from "./imagen";
 
-export interface Ejercicio {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    materiales: string;
-    video: string;
-    carga: string;
-    imagen: Img | null;
+
+export interface EjercicioDTO {
+    nombre? : string,
+    descripcion? : string,
+    observaciones? : string,
+    tipo? : string,
+    musculosTrabajados? : string 
+    material? : string
+    dificultad? : string 
+    multimedia? : Array<string>
+    id : number // ¿$int64?
     
   }

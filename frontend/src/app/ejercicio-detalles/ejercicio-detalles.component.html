@@ -14,24 +14,26 @@
          <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.descripcion}}</span>
        </div>
        <div class="row">
-         <label class="col-md-3" for="materiales">Materiales:</label>
-         <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.materiales}}</span>
+        <label class="col-md-3" for="observaciones">Observaciones:</label>
+        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.observaciones}}</span>
        </div>
        <div class="row">
-         <label class="col-md-3" for="carga">Carga:</label>
-         <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.carga}}</span>
+        <label class="col-md-3" for="tipo">Tipo:</label>
+        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.tipo}}</span>
        </div>
        <div class="row">
-         <label class="col-md-3" for="video">Video:</label>
-         <a *ngIf="ejercicio?.video" class="col-md-9 offset-2 offset-md-0"href="{{ejercicio?.video}}" target="_blank" >Enlace a video</a>
-       </div>
-       <div class="row">
-         <label class="col-md-3" for="imagen">Imagen:</label>
-         <div class="col-md-9">
-           <img *ngIf="ejercicio?.imagen?.src" [src]="ejercicio?.imagen?.src" class="img-fluid" />
-           <span *ngIf="!ejercicio?.imagen?.src">No hay imagen seleccionada</span>
+         <label class="col-md-3" for="musculosTrabajados">MusculosTrabajados:</label>
+         <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.musculosTrabajados}}</span>
+        </div>
+        <div class="row">
+          <label class="col-md-3" for="materiales">Materiales:</label>
+          <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.material}}</span>
+        </div>
+        <div class="row">
+          <label class="col-md-3" for="dificultad">Dificultad:</label>
+          <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.dificultad}}</span>
          </div>
-       </div>
+         <!-- Añadir multimedia-->
      
        <div class="row">
          <div class="col-md-3">
