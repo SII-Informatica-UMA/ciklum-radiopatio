@@ -8,15 +8,17 @@
         <input class="form-control" id="nombre" [(ngModel)]="ejercicio.nombre" placeholder="Nombre">
         <label for="descripcion">Descripcion:</label>
         <textarea class="form-control" id="descripcion" [(ngModel)]="ejercicio.descripcion" placeholder="Breve descripcion del ejercicio" rows="5"></textarea>
-        <label for="materiales">Materiales:</label>
-        <input class="form-control" id="materiales" [(ngModel)]="ejercicio.materiales" placeholder="Materiales necesarios">
-        <label for="carga">Carga:</label>
-        <input class="form-control" id="carga" [(ngModel)]="ejercicio.carga" placeholder="Carga">
-        <label for="video">Video:</label>
-        <input class="form-control" id="video" [(ngModel)]="ejercicio.video" placeholder="Enlace a video" (blur)="validarUrl(ejercicio.video)" >
-        <label for="imagen">Imagen:</label>
-        <input class="form-control" id="imagen" [(ngModel)]="ejercicio.imagen" type="file" (change)="onFileSelected($event)" accept="image/*" >
-        
+        <label for="observaciones">Observaciones:</label>
+        <input class="form-control" id="observaciones" [(ngModel)]="ejercicio.observaciones" placeholder="Observaciones del ejercicio">
+        <label for="tipo">Tipo:</label>
+        <input class="form-control" id="tipo" [(ngModel)]="ejercicio.tipo" placeholder="Tipo de ejercicio">
+        <label for="musculosTrabajados">Musculos Trabajados:</label>
+        <input class="form-control" id="musculosTrabajados" [(ngModel)]="ejercicio.musculosTrabajados" placeholder="Musculos Trabajados">
+        <label for="material">Material:</label>
+        <input class="form-control" id="material" [(ngModel)]="ejercicio.material" placeholder="Materiales necesarios">
+        <label for="dificultad">Dificultad:</label>
+        <input class="form-control" id="dificultad" [(ngModel)]="ejercicio.dificultad" placeholder="Dificultado del ejercicio">
+        <!--Añadir multimedia-->
     </div>
   </div>
   <div class="modal-footer">

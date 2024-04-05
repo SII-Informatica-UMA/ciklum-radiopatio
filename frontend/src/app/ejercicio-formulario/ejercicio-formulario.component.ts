@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Ejercicio } from '../ejercicio/ejercicio';
+import { EjercicioDTO } from '../ejercicio/ejercicio';
 import { FormsModule } from '@angular/forms';
-import { Img } from '../ejercicio/imagen';
 @Component({
   selector: 'app-ejercicio-formulario',
   standalone: true,
@@ -13,20 +12,22 @@ import { Img } from '../ejercicio/imagen';
 export class EjercicioFormularioComponent {
 
   accion?: "Añadir" | "Editar";
-  ejercicio: Ejercicio =  {id: 0, nombre: '', descripcion: '', materiales: '', video: '', carga: '',imagen:null};
+  ejercicio: EjercicioDTO =  {nombre : "", descripcion : "" , observaciones : "", tipo : "", musculosTrabajados : "", material : "",
+    dificultad : "", multimedia : [], id : 0
+  };
   constructor(public modal: NgbActiveModal) { }
   guardarEjercicio(): void {
-    if(!this.validarUrl(this.ejercicio.video)){
+    /*if(!this.validarUrl(this.ejercicio.video)){
       this.modal.close(this.ejercicio);
-    }
-    
+    }*/
+    this.modal.close(this.ejercicio)
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.ejercicio.imagen = { src: e.target.result };
+        /*this.ejercicio.imagen = { src: e.target.result };*/
       };
     reader.readAsDataURL(file);
   }

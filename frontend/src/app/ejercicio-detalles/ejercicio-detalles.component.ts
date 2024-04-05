@@ -1,5 +1,5 @@
 import { Component,Input, Output, EventEmitter } from '@angular/core';
-import { Ejercicio } from '../ejercicio/ejercicio';
+import { EjercicioDTO } from '../ejercicio/ejercicio';
 import { EjercicioService } from '../ejercicio/ejercicio.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -13,8 +13,8 @@ import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-
   styleUrl: './ejercicio-detalles.component.css'
 })
 export class EjercicioDetallesComponent {
-  @Input() ejercicio?: Ejercicio;
-  @Output() ejercicioEditado = new EventEmitter<Ejercicio>();
+  @Input() ejercicio?: EjercicioDTO;
+  @Output() ejercicioEditado = new EventEmitter<EjercicioDTO>();
   @Output() ejercicioEliminado = new EventEmitter<number>();
 
   constructor(private ejerciciosService: EjercicioService, private modalService: NgbModal,  ) { }
@@ -23,7 +23,7 @@ export class EjercicioDetallesComponent {
     let ref = this.modalService.open(EjercicioFormularioComponent);
     ref.componentInstance.accion = "Editar";
     ref.componentInstance.ejercicio = {...this.ejercicio};
-    ref.result.then((ejercicio: Ejercicio) => {
+    ref.result.then((ejercicio: EjercicioDTO) => {
       this.ejercicioEditado.emit(ejercicio);
     }, (reason) => {});
   }
