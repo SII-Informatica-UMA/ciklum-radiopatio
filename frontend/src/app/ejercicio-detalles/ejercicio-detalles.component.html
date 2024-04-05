@@ -3,45 +3,54 @@
     <div class="list-group list-group-scroll">
       <div class="row white-background">
         <h2 >Detalles de {{ejercicio?.nombre}}</h2>
-       </div>
+      </div>
        
-       <div class="row white-background">
-         <label class="col-md-3" for="nombre">Nombre:</label>
-         <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.nombre}}</span>
-       </div>
-       <div class="row">
-         <label class="col-md-3" for="descripcion">Descripcion:</label>
-         <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.descripcion}}</span>
-       </div>
-       <div class="row">
-        <label class="col-md-3" for="observaciones">Observaciones:</label>
-        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.observaciones}}</span>
-       </div>
-       <div class="row">
-        <label class="col-md-3" for="tipo">Tipo:</label>
-        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.tipo}}</span>
-       </div>
-       <div class="row">
-         <label class="col-md-3" for="musculosTrabajados">MusculosTrabajados:</label>
-         <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.musculosTrabajados}}</span>
-        </div>
-        <div class="row">
-          <label class="col-md-3" for="materiales">Materiales:</label>
-          <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.material}}</span>
-        </div>
-        <div class="row">
-          <label class="col-md-3" for="dificultad">Dificultad:</label>
-          <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.dificultad}}</span>
-         </div>
-         <!-- Añadir multimedia-->
-     
-       <div class="row">
-         <div class="col-md-3">
-           <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
-         </div>
-         <div class="col-md-3">
-           <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarEjercicio()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
-         </div>
+      <div class="row white-background">
+        <label class="col-md-3" for="nombre">Nombre:</label>
+        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.nombre}}</span>
+      </div>
+
+      <div class="row">
+        <label class="col-md-3" for="descripcion">Descripcion:</label>
+        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.descripcion}}</span>
+      </div>
+
+      <div class="row">
+      <label class="col-md-3" for="observaciones">Observaciones:</label>
+      <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.observaciones}}</span>
+      </div>
+
+      <div class="row">
+      <label class="col-md-3" for="tipo">Tipo:</label>
+      <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.tipo}}</span>
+      </div>
+
+      <div class="row">
+        <label class="col-md-3" for="musculosTrabajados">Musculos Trabajados:</label>
+        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.musculosTrabajados}}</span>
+      </div>
+
+      <div class="row">
+        <label class="col-md-3" for="materiales">Materiales:</label>
+        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.material}}</span>
+      </div>
+
+      <div class="row">
+        <label class="col-md-3" for="dificultad">Dificultad:</label>
+        <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.dificultad}}</span>
+      </div>
+
+      <!-- Añadir multimedia-->
+    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <button class="col-auto btn btn-danger" id="boton" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
+    </div>
+    <div class="col-md-2">
+      <button class="col-auto btn btn-primary" id="boton" (click)="editarEjercicio()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
     </div>
   </div>
 </div>

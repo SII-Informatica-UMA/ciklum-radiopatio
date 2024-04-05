@@ -8,12 +8,13 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6" *ngIf="ejercicioElegido">
-      <app-ejercicio-detalles [ejercicio]="ejercicioElegido" (ejercicioEditado)="ejercicioEditado($event)" (ejercicioEliminado)="eliminarEjercicio($event)"></app-ejercicio-detalles> 
+    <div class="col-xs-12 col-sm-12 col-md-6" *ngIf="ejercicioElegido">
+      <app-ejercicio-detalles id="ejercicio_detalles" [ejercicio]="ejercicioElegido" (ejercicioEditado)="ejercicioEditado($event)" (ejercicioEliminado)="eliminarEjercicio($event)"></app-ejercicio-detalles> 
     </div>
   </div>
+
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <button id="boton_aniadir" type="button" class="btn btn-primary" (click)="aniadirEjercicio()">Añadir ejercicio <i class="bi bi-plus-circle"></i></button>
     </div>
   </div>

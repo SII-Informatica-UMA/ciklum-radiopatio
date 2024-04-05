@@ -1,17 +1,12 @@
 .container {
-    top: 20px; /* Se coloca en la parte superior de la página */
-    width: 250%;
+    position: absolute;
     background-color: #1d2124;
     color: aliceblue;
-    margin-left: 60%;
     border-style:solid;
-    border-image: url('../../assets/difuminao.avif') 2 round;
+    border-image: url('../../assets/difuminao.avif') 1 round;
     border-width: 2px;
-}
-
-.list-container {
-    max-height: 590px; /* Altura máxima del listado de ejercicios con scroll */
-    overflow-y: scroll; /* Mostrar barra de desplazamiento vertical si es necesario */
+    margin-top: 70px;
+    margin-left: 40px;
 }
 
 h2 {
@@ -23,14 +18,9 @@ h2 {
     color: #73828e;
 }
 
-#boton_eliminar {
-    margin: 10px;
-    margin-top: 10px;
-    color: aliceblue;
-
-}
-
-#boton_editar {
+#boton{
+    padding: 8px;
+    width: 120px;
     margin: 10px;
     margin-top: 10px;
     color: aliceblue;
