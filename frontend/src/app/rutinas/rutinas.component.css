@@ -1,0 +1,27 @@
+.container {
+    position: absolute;
+    top: 480px; /* Se coloca en la parte superior de la página */
+    left: 20%; /* Ajusta la posición izquierda si es necesario */
+    width: 40%;
+}
+
+.list-container {
+    max-height: 550px; /* Altura máxima del listado de ejercicios con scroll */
+    overflow-y: auto; /* Mostrar barra de desplazamiento vertical si es necesario */
+}
+
+#rutinas_detalles {
+    width: 250%;
+    overflow: hidden;
+}
+
+h2 {
+    color: aliceblue;
+}
+
+#boton_aniadir {
+    margin-top: 20px;
+}
+
+
+

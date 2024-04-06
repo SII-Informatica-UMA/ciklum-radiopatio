@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-rutinas',
@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './rutinas.component.html',
   styleUrl: './rutinas.component.css'
 })
-export class RutinasComponent {
-
+export class RutinasComponent implements OnInit{
+  
 }

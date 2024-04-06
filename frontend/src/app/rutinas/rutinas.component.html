@@ -1,1 +1,21 @@
-<p>rutinas works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Lista de rutinas</h2>
+        <div class="list-container"> 
+          <div class="list-group list-group-scroll"> 
+            <button *ngFor="let rutina of rutinas" class="list-group-item list-group-item-action" (click)="elegirrutina(rutina)" [class.active]="rutina === rutinaElegido">{{rutina.nombre}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6" *ngIf="ejercicioElegido">
+        <app-ejercicio-detalles id="ejercicio_detalles" [ejercicio]="ejercicioElegido" (ejercicioEditado)="ejercicioEditado($event)" (ejercicioEliminado)="eliminarEjercicio($event)"></app-ejercicio-detalles> 
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <button id="boton_aniadir" type="button" class="btn btn-primary" (click)="aniadirRutina()">Añadir rutina <i class="bi bi-plus-circle"></i></button>
+      </div>
+    </div>
+  </div>

@@ -1,4 +1,3 @@
-
 import { FragmentoRutinaDTO } from "./fragmentoRutina"
 
 export interface RutinaDTO{

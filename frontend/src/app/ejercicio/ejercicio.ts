@@ -1,5 +1,3 @@
-
-
 export interface EjercicioDTO {
     nombre? : string,
     descripcion? : string,
