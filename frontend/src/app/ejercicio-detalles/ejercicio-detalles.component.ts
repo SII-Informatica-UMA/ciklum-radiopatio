@@ -1,6 +1,6 @@
 import { Component,Input, Output, EventEmitter } from '@angular/core';
 import { EjercicioDTO } from '../ejercicio/ejercicio';
-import { EjercicioService } from '../ejercicio/ejercicio.service';
+import { BackendService } from '../services/backend.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-formulario.component';
@@ -17,7 +17,7 @@ export class EjercicioDetallesComponent {
   @Output() ejercicioEditado = new EventEmitter<EjercicioDTO>();
   @Output() ejercicioEliminado = new EventEmitter<number>();
 
-  constructor(private ejerciciosService: EjercicioService, private modalService: NgbModal,  ) { }
+  constructor(private backendService: BackendService, private modalService: NgbModal,  ) { }
 
   editarEjercicio(): void {
     let ref = this.modalService.open(EjercicioFormularioComponent);
