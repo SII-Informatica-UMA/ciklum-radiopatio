@@ -2,9 +2,6 @@
     position: absolute;
     background-color: #1d2124;
     color: aliceblue;
-    border-style:solid;
-    border-image: url('../../assets/difuminao.avif') 1 round;
-    border-width: 2px;
     margin-top: 70px;
     margin-left: 40px;
 }
@@ -18,10 +15,18 @@ h2 {
     color: #73828e;
 }
 
-#boton{
+#boton_eliminar{
     padding: 8px;
     width: 120px;
-    margin: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: aliceblue;
+}
+
+#boton_aniadir{
+    padding: 8px;
+    width: 120px;
+    margin-bottom: 10px;
     margin-top: 10px;
     color: aliceblue;
 }
