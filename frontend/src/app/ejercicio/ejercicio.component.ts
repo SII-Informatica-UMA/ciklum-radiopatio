@@ -33,7 +33,7 @@ export class EjercicioComponent implements OnInit {
     this.ejercicioElegido = ejercicio;
   }
   ejercicioEditado(ejercicio: EjercicioDTO): void {
-    this.ejercicioService.putEjercicio(this.idEntrenador,ejercicio);
+    this.ejercicioService.putEjercicio(ejercicio.id,ejercicio);
     this.actualizarEjercicios();
     this.ejercicioElegido = this.ejercicios.find(c => c.id == ejercicio.id);
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EjercicioDTO } from '../ejercicio/ejercicio';
 import { Observable, of } from 'rxjs';
+import { RutinaDTO } from '../rutinas/rutinas';
 
 
 @Injectable({
@@ -47,6 +48,9 @@ export class BackendFakeService {
     dificultad : "8", multimedia : [], id : 2},
    ];
    
+   private rutinas: RutinaDTO[] = [];
+
+
   constructor() { }
 
   getEjercicios(idEntrenador : number): Observable<EjercicioDTO[]> {
@@ -71,5 +75,25 @@ export class BackendFakeService {
     return of();
   }
 
+  getRutinas(idEntrenador : number): Observable<RutinaDTO[]> {
+    return of(this.rutinas);
+  }
 
+  postRutina(idEntrenador : number,rutina: RutinaDTO) : Observable<RutinaDTO>{ 
+    rutina.id = Math.max(...this.rutinas.map(c => c.id)) + 1;
+    this.rutinas.push(rutina);
+    return of(rutina);
+  }
+
+  putRutina(idEntrenador : number,rutina: RutinaDTO) : Observable<RutinaDTO>{
+    let indice = this.rutinas.findIndex(c => c.id == rutina.id);
+    this.rutinas[indice] = rutina;
+    return of(this.rutinas[indice]);
+  }
+
+  deleteRutina(id: number) : Observable<void> {
+    let indice = this.rutinas.findIndex(c => c.id == id);
+    this.rutinas.splice(indice, 1);
+    return of();
+  }
 }

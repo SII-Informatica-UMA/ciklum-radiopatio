@@ -20,8 +20,8 @@ export class EjerciciosService{
         return this.backend.postEjercicio(idEntrenador,ejercicio);
       }
     
-      putEjercicio(idEntrenador : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{ 
-        return this.backend.putEjercicio(idEntrenador,ejercicio);
+      putEjercicio(idEjercicio : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{ 
+        return this.backend.putEjercicio(idEjercicio,ejercicio);
       }
     
       deleteEjercicio(id: number) : Observable<void>{ 
