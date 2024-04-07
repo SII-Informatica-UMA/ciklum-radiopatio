@@ -1,15 +1,21 @@
 .container {
     position: absolute;
-    top: 500px; /* Se coloca en la parte superior de la página */
     left: 10%; /* Ajusta la posición izquierda si es necesario */
     width: 40%;
+}
+
+#lista_ejercicio {
+    top: 500px; /* Se coloca en la parte superior de la página */
+}
+
+#boton_aniadir_ejercicio {
+    top: 700px; /* Se coloca en la parte superior de la página */
 }
 
 .list-container {
 
     max-height: 550px; /* Altura máxima del listado de ejercicios con scroll */
-    overflow-y: scroll; /* Mostrar barra de desplazamiento vertical si es necesario */
-    overflow-x: auto; 
+    overflow-y: auto; /* Mostrar barra de desplazamiento vertical si es necesario */
 }
 
 .container .row {
