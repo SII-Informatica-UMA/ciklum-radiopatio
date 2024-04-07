@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EjercicioDTO } from './ejercicio';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { BackendService } from '../services/backend.service';
+import { EjerciciosService } from '../services/ejercicios.service';
 import { CommonModule } from '@angular/common';
 import { EjercicioDetallesComponent } from '../ejercicio-detalles/ejercicio-detalles.component';
 import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-formulario.component';
@@ -23,7 +23,7 @@ export class EjercicioComponent implements OnInit {
   ejercicioElegido?: EjercicioDTO;
 
 
-  constructor(private backendService: BackendService, private modalService: NgbModal) { }
+  constructor(private ejercicioService: EjerciciosService, private modalService: NgbModal) { }
   // al cargar la pagina, ngOnInit cargara directamente la lista de ejercicios
   ngOnInit(): void {
     this.actualizarEjercicios();
@@ -33,12 +33,12 @@ export class EjercicioComponent implements OnInit {
     this.ejercicioElegido = ejercicio;
   }
   ejercicioEditado(ejercicio: EjercicioDTO): void {
-    this.backendService.putEjercicio(this.idEntrenador,ejercicio);
+    this.ejercicioService.putEjercicio(this.idEntrenador,ejercicio);
     this.actualizarEjercicios();
     this.ejercicioElegido = this.ejercicios.find(c => c.id == ejercicio.id);
   }
   eliminarEjercicio(id: number): void {
-    this.backendService.deleteEjercicio(id);
+    this.ejercicioService.deleteEjercicio(id);
     this.actualizarEjercicios();
     this.ejercicioElegido = undefined;
   }
@@ -49,12 +49,12 @@ export class EjercicioComponent implements OnInit {
     dificultad : "", multimedia : [], id : 0};
     ref.result.then((ejercicio: EjercicioDTO) => {
       ejercicio.id = Math.max(...this.ejercicios.map(c => c.id)) + 1;
-      this.backendService.postEjercicio(this.idEntrenador,ejercicio);
+      this.ejercicioService.postEjercicio(this.idEntrenador,ejercicio);
       this.actualizarEjercicios();
     }, (reason) => {});
   }
 
   actualizarEjercicios() : void {
-    this.backendService.getEjercicios(this.idEntrenador ).subscribe(ejercicios => {this.ejercicios = ejercicios})
+    this.ejercicioService.getEjercicios(this.idEntrenador ).subscribe(ejercicios => {this.ejercicios = ejercicios})
   }
 }

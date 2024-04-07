@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { EjercicioDTO } from './ejercicio';
+import { EjercicioDTO } from '../ejercicio/ejercicio';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class EjercicioService {
+export class BackendFakeService {
   private ejercicios: EjercicioDTO []=[
     {nombre : "Sentadillas", descripcion : "Bajar el culo" , observaciones : "Observacion inteligente", tipo : "sentarse", musculosTrabajados : "Gluteos", material : "Ninguno",
     dificultad : "3", multimedia : [], id : 0},
@@ -18,22 +19,27 @@ export class EjercicioService {
    
   constructor() { }
 
-  getEjercicios(): EjercicioDTO [] {
-    return this.ejercicios;
+  getEjercicios(idEntrenador : number): Observable<EjercicioDTO[]> {
+    return of(this.ejercicios);
   }
 
-  addEjercicios(ejercicio: EjercicioDTO) {
+  postEjercicio(idEntrenador : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{ 
     ejercicio.id = Math.max(...this.ejercicios.map(c => c.id)) + 1;
     this.ejercicios.push(ejercicio);
+    return of(ejercicio);
   }
 
-  editarEjercicios(ejercicio: EjercicioDTO) {
+  putEjercicio(idEntrenador : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{
     let indice = this.ejercicios.findIndex(c => c.id == ejercicio.id);
     this.ejercicios[indice] = ejercicio;
+    return of(this.ejercicios[indice]);
   }
 
-  eliminarEjercicios(id: number) {
+  deleteEjercicio(id: number) : Observable<void> {
     let indice = this.ejercicios.findIndex(c => c.id == id);
     this.ejercicios.splice(indice, 1);
+    return of();
   }
+
+
 }

@@ -16,7 +16,7 @@ import { RutinaDTO } from "../rutinas/rutinaDTO";
         return this.httpClient.get<EjercicioDTO[]>(BACKEND_URI+"/ejercicio?entrenador="+idEntrenador);
     }
 
-    getRutinas(idEntrenador : number) : Observable<EjercicioDTO[]>{
+    getRutinas(idEntrenador : number) : Observable<RutinaDTO[]>{
         return this.httpClient.get<EjercicioDTO[]>(BACKEND_URI+"/rutina?entrenador="+idEntrenador);
     }
 
@@ -36,8 +36,8 @@ import { RutinaDTO } from "../rutinas/rutinaDTO";
         return this.httpClient.put<EjercicioDTO>(BACKEND_URI+"/ejercicio/"+idEjercicio,ejercicio);
     }
     
-    deleteEjercicio( idEjercicio : number) : Observable<EjercicioDTO>{
-        return this.httpClient.delete<EjercicioDTO>(BACKEND_URI+"/ejercicio/"+idEjercicio);
+    deleteEjercicio( idEjercicio : number) : Observable<void>{
+        return this.httpClient.delete<void>(BACKEND_URI+"/ejercicio/"+idEjercicio);
     }
 
     getRutina( idRutina : number) : Observable<RutinaDTO>{
@@ -48,8 +48,8 @@ import { RutinaDTO } from "../rutinas/rutinaDTO";
         return this.httpClient.put<EjercicioDTO>(BACKEND_URI+"/ejercicio/"+idRutina,rutina);
     }
     
-    deleteRutina( idRutina : number) : Observable<RutinaDTO>{
-        return this.httpClient.delete<EjercicioDTO>(BACKEND_URI+"/ejercicio/"+idRutina);
+    deleteRutina( idRutina : number) : Observable<void>{
+        return this.httpClient.delete<void>(BACKEND_URI+"/ejercicio/"+idRutina);
     }
 
   }
