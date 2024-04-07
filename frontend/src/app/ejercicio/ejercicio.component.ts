@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { EjercicioDTO } from './ejercicio';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { EjercicioService } from './ejercicio.service';
+import { EjerciciosService } from '../services/ejercicios.service';
 import { CommonModule } from '@angular/common';
 import { EjercicioDetallesComponent } from '../ejercicio-detalles/ejercicio-detalles.component';
 import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-formulario.component';
+import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'app-ejercicio',
@@ -13,30 +14,32 @@ import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-
   templateUrl: './ejercicio.component.html',
   styleUrl: './ejercicio.component.css',
 })
+
+
 export class EjercicioComponent implements OnInit {
 
-
+  idEntrenador = 20; // COMO NO TENEMOS USUARIO INICIADO IMPROVISO CON ESTO DE MOMENTO
   ejercicios: EjercicioDTO [] = [];
   ejercicioElegido?: EjercicioDTO;
 
 
-  constructor(private ejercicioService: EjercicioService, private modalService: NgbModal) { }
+  constructor(private ejercicioService: EjerciciosService, private modalService: NgbModal) { }
   // al cargar la pagina, ngOnInit cargara directamente la lista de ejercicios
   ngOnInit(): void {
-    this.ejercicios = this.ejercicioService.getEjercicios();
+    this.actualizarEjercicios();
   }
 
   elegirEjercicio(ejercicio: EjercicioDTO): void {
     this.ejercicioElegido = ejercicio;
   }
   ejercicioEditado(ejercicio: EjercicioDTO): void {
-    this.ejercicioService.editarEjercicios(ejercicio);
-    this.ejercicios = this.ejercicioService.getEjercicios();
+    this.ejercicioService.putEjercicio(this.idEntrenador,ejercicio);
+    this.actualizarEjercicios();
     this.ejercicioElegido = this.ejercicios.find(c => c.id == ejercicio.id);
   }
   eliminarEjercicio(id: number): void {
-    this.ejercicioService.eliminarEjercicios(id);
-    this.ejercicios = this.ejercicioService.getEjercicios();
+    this.ejercicioService.deleteEjercicio(id);
+    this.actualizarEjercicios();
     this.ejercicioElegido = undefined;
   }
   aniadirEjercicio(): void {
@@ -45,8 +48,13 @@ export class EjercicioComponent implements OnInit {
     ref.componentInstance.ejercicio = {nombre : "", descripcion : "" , observaciones : "", tipo : "", musculosTrabajados : "", material : "",
     dificultad : "", multimedia : [], id : 0};
     ref.result.then((ejercicio: EjercicioDTO) => {
-      this.ejercicioService.addEjercicios(ejercicio);
-      this.ejercicios = this.ejercicioService.getEjercicios();
+      ejercicio.id = Math.max(...this.ejercicios.map(c => c.id)) + 1;
+      this.ejercicioService.postEjercicio(this.idEntrenador,ejercicio);
+      this.actualizarEjercicios();
     }, (reason) => {});
+  }
+
+  actualizarEjercicios() : void {
+    this.ejercicioService.getEjercicios(this.idEntrenador ).subscribe(ejercicios => {this.ejercicios = ejercicios})
   }
 }
