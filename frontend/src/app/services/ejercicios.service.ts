@@ -10,9 +10,9 @@ import { Observable } from "rxjs";
 
 export class EjerciciosService{
 
-    constructor(private backend : BackendService){}
+    constructor(private backend : BackendFakeService){}
 
-    getEjercicios(idEntrenador : number): Observable<EjercicioDTO[]>{ 
+      getEjercicios(idEntrenador : number): Observable<EjercicioDTO[]>{ 
         return this.backend.getEjercicios(idEntrenador);
       }
     
@@ -25,6 +25,22 @@ export class EjerciciosService{
       }
     
       deleteEjercicio(id: number) : Observable<void>{ 
+        return this.backend.deleteEjercicio(id);
+      }
+
+      getRutina(idEntrenador : number): Observable<EjercicioDTO[]>{ 
+        return this.backend.getEjercicios(idEntrenador);
+      }
+    
+      postRutina(idEntrenador : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{
+        return this.backend.postEjercicio(idEntrenador,ejercicio);
+      }
+    
+      putRutina(idEntrenador : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{ 
+        return this.backend.putEjercicio(idEntrenador,ejercicio);
+      }
+    
+      deleteRutina(id: number) : Observable<void>{ 
         return this.backend.deleteEjercicio(id);
       }
 }

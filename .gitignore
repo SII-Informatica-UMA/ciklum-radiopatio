@@ -29,6 +29,7 @@ app.component.spec.ts
 
 comandos_basicos_GIT.txt
 
+db.mv.db
 #Github Node gitignore
 #*node_modules/
 #*.angular/
