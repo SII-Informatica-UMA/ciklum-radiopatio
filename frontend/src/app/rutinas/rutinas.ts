@@ -6,5 +6,5 @@ export interface RutinaDTO{
     descripcion? : string,
     observaciones? : string,
     ejercicios? : Array<FragmentoRutinaDTO>
-    id? : number
+    id : number
 }
