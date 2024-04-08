@@ -1,0 +1,34 @@
+.container {
+    top: 20px; /* Se coloca en la parte superior de la página */
+    width: 250%;
+    background-color: #1d2124;
+    color: aliceblue;
+    margin-left: 60%;
+}
+
+.list-container {
+    max-height: 590px; /* Altura máxima del listado de ejercicios con scroll */
+    overflow-y: auto; /* Mostrar barra de desplazamiento vertical si es necesario */
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.col-md-3 {
+    color: #73828e;
+}
+
+#boton_eliminar {
+    margin: 10px;
+    margin-top: 10px;
+    color: aliceblue;
+
+}
+
+#boton_editar {
+    margin: 10px;
+    margin-top: 10px;
+    color: aliceblue;
+}

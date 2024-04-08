@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { EjercicioDTO } from "../ejercicio/ejercicio";
 import { BACKEND_URI } from "../config/config";
-import { RutinaDTO } from "../rutinas/rutinaDTO";
+import { RutinaDTO } from "../rutinas/rutinas";
 
 @Injectable({
     providedIn: 'root'

@@ -29,18 +29,18 @@ export class EjerciciosService{
       }
 
       getRutina(idEntrenador : number): Observable<EjercicioDTO[]>{ 
-        return this.backend.getEjercicios(idEntrenador);
+        return this.backend.getRutinas(idEntrenador);
       }
     
-      postRutina(idEntrenador : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{
-        return this.backend.postEjercicio(idEntrenador,ejercicio);
+      postRutina(idEntrenador : number,rutina: EjercicioDTO) : Observable<EjercicioDTO>{
+        return this.backend.postRutina(idEntrenador,rutina);
       }
     
-      putRutina(idEntrenador : number,ejercicio: EjercicioDTO) : Observable<EjercicioDTO>{ 
-        return this.backend.putEjercicio(idEntrenador,ejercicio);
+      putRutina(idRutina : number,rutina: EjercicioDTO) : Observable<EjercicioDTO>{ 
+        return this.backend.putRutina(idRutina,rutina);
       }
     
       deleteRutina(id: number) : Observable<void>{ 
-        return this.backend.deleteEjercicio(id);
+        return this.backend.deleteRutina(id);
       }
 }

@@ -8,7 +8,7 @@ import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-
 @Component({
   selector: 'app-ejercicio-detalles',
   standalone: true,
-  imports: [CommonModule,],
+  imports: [CommonModule],
   templateUrl: './ejercicio-detalles.component.html',
   styleUrl: './ejercicio-detalles.component.css'
 })
@@ -31,7 +31,4 @@ export class EjercicioDetallesComponent {
   eliminarEjercicio(): void {
     this.ejercicioEliminado.emit(this.ejercicio?.id);
   }
-  
-  
-
 }

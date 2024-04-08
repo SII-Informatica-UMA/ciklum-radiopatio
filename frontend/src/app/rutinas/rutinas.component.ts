@@ -3,11 +3,13 @@ import { RutinaDTO } from './rutinas';
 import { EjerciciosService } from '../services/ejercicios.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RutinaFormularioComponent } from '../rutina-formulario/rutina-formulario.component';
+import { RutinaDetallesComponent } from '../rutina-detalles/rutina-detalles.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rutinas',
   standalone: true,
-  imports: [],
+  imports: [RutinaDetallesComponent, CommonModule],
   templateUrl: './rutinas.component.html',
   styleUrl: './rutinas.component.css'
 })
@@ -27,7 +29,7 @@ export class RutinasComponent implements OnInit {
     this.rutinaElegida = rutina;
   }
   rutinaEditada(rutina: RutinaDTO): void {
-    this.ejercicioService.putRutina(this.idEntrenador,rutina);
+    this.ejercicioService.putRutina(rutina.id,rutina);
     this.actualizarRutinas();
     this.rutinaElegida = this.rutinas.find(c => c.id == rutina.id);
   }
@@ -49,6 +51,6 @@ export class RutinasComponent implements OnInit {
   }
 
   actualizarRutinas() : void {
-    this.ejercicioService.getRutina(this.idEntrenador ).subscribe(this.rutinas => {this.rutina = this.rutinas})
+    this.ejercicioService.getRutina(this.idEntrenador ).subscribe(rutinas => {this.rutinas = rutinas})
   }
 }

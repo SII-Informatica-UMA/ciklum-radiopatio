@@ -4,5 +4,5 @@ export interface FragmentoRutinaDTO {
     series? : number,
     repeticiones? : number,
     duracionMinutos? : number,
-    ejercicios? : EjercicioDTO
+    ejercicio? : EjercicioDTO
 }

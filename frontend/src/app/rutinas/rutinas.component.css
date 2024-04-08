@@ -1,0 +1,32 @@
+.container {
+    position: absolute;
+    left: 10%; /* Ajusta la posición izquierda si es necesario */
+    width: 40%;
+}
+
+#lista_ejercicio {
+    top: 500px; /* Se coloca en la parte superior de la página */
+}
+
+#boton_aniadir_ejercicio {
+    top: 700px; /* Se coloca en la parte superior de la página */
+}
+
+.list-container {
+
+    max-height: 550px; /* Altura máxima del listado de ejercicios con scroll */
+    overflow-y: auto; /* Mostrar barra de desplazamiento vertical si es necesario */
+}
+
+.container .row {
+    white-space: normal; /* Evita que el contenido se divida en varias líneas */
+    flex-direction: row;
+}
+
+h2 {
+    color: aliceblue;
+}
+
+#boton_aniadir {
+    margin-top: 20px;
+}

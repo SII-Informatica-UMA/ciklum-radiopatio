@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EjercicioDTO } from '../ejercicio/ejercicio';
 import { Observable, of } from 'rxjs';
 import { RutinaDTO } from '../rutinas/rutinas';
+import { FragmentoRutinaDTO } from '../rutinas/fragmentoRutina';
 
 
 @Injectable({
@@ -47,12 +48,19 @@ export class BackendFakeService {
     {nombre : "Cabezazo", descripcion : "Meterle un cabezazo" , observaciones : "CABEZAZO PUM", tipo : "Dolor de cabeza", musculosTrabajados : "cabeza", material : "casco (opcional) ",
     dificultad : "8", multimedia : [], id : 2},
    ];
+
+   private fragmentos: FragmentoRutinaDTO [] = [
+    {series: 8, repeticiones: 4, duracionMinutos: 0.5, ejercicio: this.ejercicios[0]},
+    {series: 8, repeticiones: 4, duracionMinutos: 1, ejercicio: this.ejercicios[1]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[2]},
+   ]
+
+   private rutinas: RutinaDTO [] = [
+    {nombre: "Ejercicio para abuelas", descripcion: "subele el mambo", observaciones: "que el ritmo no pare mami", ejercicios: this.fragmentos, id: 0},
+   ]
    
-   private rutinas: RutinaDTO[] = [];
-
-
   constructor() { }
-
+  
   getEjercicios(idEntrenador : number): Observable<EjercicioDTO[]> {
     return of(this.ejercicios);
   }
