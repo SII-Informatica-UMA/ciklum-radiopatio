@@ -8,7 +8,7 @@ CRUD de ejercicios y rutinas definidas por los entrenadores para los clientes qu
 
 ### Frontend
 - [x] Conceptual
-- [ ] Estructura de la Web (HTML)
+- [x] Estructura de la Web (HTML)
 - [ ] Diseño y decorado (CSS)
 - [ ] Definicición del servicio y componente (para comunicar con el backend)
 
