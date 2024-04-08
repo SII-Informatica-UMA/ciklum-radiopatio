@@ -5,16 +5,16 @@
 
 .container {
     margin-top: 40px;
-    width: 250%;
+    width: 200%;
     background-color: #1d2124;
     color: aliceblue;
-    margin-left: 30%;
 }
 
 .list-container {
     max-height: 600px; /* Altura máxima del listado de ejercicios con scroll */
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-width: none; /* Ocultar la barra de desplazamiento en navegadores que lo soporten */
 }
 
 h2 {
@@ -22,7 +22,7 @@ h2 {
     text-align: center;
 }
 
-.col-md-3 {
+.col-md-4 {
     color: #73828e;
 }
 
