@@ -18,7 +18,10 @@
         <input class="form-control" id="material" [(ngModel)]="ejercicio.material" placeholder="Materiales necesarios">
         <label for="dificultad">Dificultad:</label>
         <input class="form-control" id="dificultad" [(ngModel)]="ejercicio.dificultad" placeholder="Dificultado del ejercicio">
-        <!--Añadir multimedia-->
+        <label for="imagen">Imagen:</label>
+        <input class="form-control" id="imagen" type = "file"  placeholder="Imagen del ejercicio" (change)="onFileSelected($event)" accept="image/*" >
+        <label for="video">Video:</label>
+        <input class="form-control" id="video" [(ngModel)]="ejercicio.multimedia![1]" placeholder="Video del ejercicio">
     </div>
   </div>
   <div class="modal-footer">

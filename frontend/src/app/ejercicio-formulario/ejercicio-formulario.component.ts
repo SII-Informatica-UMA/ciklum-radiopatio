@@ -10,24 +10,31 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './ejercicio-formulario.component.css'
 })
 export class EjercicioFormularioComponent {
-
+  alerta: boolean=false;
+  enlacesMultimedia: string = '';
   accion?: "Añadir" | "Editar";
   ejercicio: EjercicioDTO =  {nombre : "", descripcion : "" , observaciones : "", tipo : "", musculosTrabajados : "", material : "",
     dificultad : "", multimedia : [], id : 0
   };
   constructor(public modal: NgbActiveModal) { }
   guardarEjercicio(): void {
-    /*if(!this.validarUrl(this.ejercicio.video)){
-      this.modal.close(this.ejercicio);
-    }*/
-    this.modal.close(this.ejercicio)
+    if (this.ejercicio && this.ejercicio.multimedia) {
+      this.alerta=false;
+      const enlacesValidos = this.ejercicio.multimedia.filter((enlace: string) => !this.validarUrl(enlace));
+      if (enlacesValidos.length === this.ejercicio.multimedia.length) {
+        this.modal.close(this.ejercicio);
+      }
+    }
+    
+
+    
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     const reader = new FileReader();
       reader.onload = (e: any) => {
-        /*this.ejercicio.imagen = { src: e.target.result };*/
+        this.ejercicio.multimedia![0] = e.target.result;
       };
     reader.readAsDataURL(file);
   }
@@ -38,10 +45,20 @@ export class EjercicioFormularioComponent {
     const httpRegex: RegExp = /^(http|https):\/\//;
 
     if (!httpRegex.test(url)) {
-      alert('La URL debe comenzar con "http://" o "https://".'); // Muestra la alerta si la URL no es válida
-      return true;
+      if (this.alerta==false){
+        this.alerta=true;
+        alert('La URL debe comenzar con "http://" o "https://".'); // Muestra la alerta si la URL no es válida
+              return true;
+      }
+      
     }
     return false;
+  }
+
+  procesarEnlacesMultimedia(event: any) {
+    const enlaces = event.target.value.split(',').map((enlace: string) => enlace.trim());
+    this.ejercicio.multimedia = enlaces.filter((enlace: string) => enlace !== ''); //enlace vacio
+    console.log(this.ejercicio.multimedia);
   }
 
   

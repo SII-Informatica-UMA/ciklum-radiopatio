@@ -10,5 +10,4 @@ export interface EjercicioDTO {
     dificultad? : string 
     multimedia? : Array<string>
     id : number
-    
   }
