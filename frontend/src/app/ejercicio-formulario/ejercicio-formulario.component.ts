@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './ejercicio-formulario.component.css'
 })
 export class EjercicioFormularioComponent {
-  alerta: boolean=false;
   enlacesMultimedia: string = '';
   accion?: "Añadir" | "Editar";
   ejercicio: EjercicioDTO =  {nombre : "", descripcion : "" , observaciones : "", tipo : "", musculosTrabajados : "", material : "",
@@ -18,12 +17,12 @@ export class EjercicioFormularioComponent {
   };
   constructor(public modal: NgbActiveModal) { }
   guardarEjercicio(): void {
-    if (this.ejercicio && this.ejercicio.multimedia) {
-      this.alerta=false;
-      const enlacesValidos = this.ejercicio.multimedia.filter((enlace: string) => !this.validarUrl(enlace));
-      if (enlacesValidos.length === this.ejercicio.multimedia.length) {
+    if (this.ejercicio && this.ejercicio.multimedia![1]) {
+      if (this.validarUrl(this.ejercicio.multimedia![1])) {
         this.modal.close(this.ejercicio);
       }
+    }else if(this.ejercicio){
+      this.modal.close(this.ejercicio);
     }
     
 
@@ -40,19 +39,15 @@ export class EjercicioFormularioComponent {
   }
   validarUrl( url: string): boolean {
     if (url.trim() === '') {
-      return false;
+      return true;
     }
     const httpRegex: RegExp = /^(http|https):\/\//;
 
     if (!httpRegex.test(url)) {
-      if (this.alerta==false){
-        this.alerta=true;
-        alert('La URL debe comenzar con "http://" o "https://".'); // Muestra la alerta si la URL no es válida
-              return true;
-      }
-      
+          alert('La URL debe comenzar con "http://" o "https://".'); // Muestra la alerta si la URL no es válida
+          return false;
     }
-    return false;
+    return true;
   }
 
   procesarEnlacesMultimedia(event: any) {

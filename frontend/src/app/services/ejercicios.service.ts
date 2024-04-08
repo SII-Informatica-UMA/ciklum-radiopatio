@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 
 export class EjerciciosService{
 
-    constructor(private backend : BackendFakeService){}
+    constructor(private backend : BackendService){}
 
       getEjercicios(idEntrenador : number): Observable<EjercicioDTO[]>{ 
         return this.backend.getEjercicios(idEntrenador);
