@@ -32,10 +32,17 @@
         <div class="row">
           <label class="col-md-3" for="dificultad">Dificultad:</label>
           <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.dificultad}}</span>
-         </div>
+        </div>
          <!-- Añadir multimedia-->
-     
-         <div class="button-container">
+        <div class="row">
+          <label class="col-md-3" for="multimedia">Multimedia:</label>
+          <span class="col-md-9 offset-2 offset-md-0">
+            <ul>
+              <li *ngFor="let elemento of ejercicio?.multimedia">{{ elemento }}</li>
+            </ul>
+          </span>
+        </div>
+        <div class="button-container">
           <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
           <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarEjercicio()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
         </div>
