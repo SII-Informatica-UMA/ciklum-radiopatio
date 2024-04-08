@@ -1,14 +1,20 @@
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .container {
-    top: 20px; /* Se coloca en la parte superior de la página */
+    margin-top: 40px;
     width: 250%;
     background-color: #1d2124;
     color: aliceblue;
-    margin-left: 60%;
+    margin-left: 30%;
 }
 
 .list-container {
-    max-height: 590px; /* Altura máxima del listado de ejercicios con scroll */
-    overflow-y: auto; /* Mostrar barra de desplazamiento vertical si es necesario */
+    max-height: 600px; /* Altura máxima del listado de ejercicios con scroll */
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -20,15 +26,11 @@ h2 {
     color: #73828e;
 }
 
-#boton_eliminar {
+
+
+#boton_eliminar, #boton_editar {
     margin: 10px;
     margin-top: 10px;
     color: aliceblue;
-
-}
-
-#boton_editar {
-    margin: 10px;
-    margin-top: 10px;
-    color: aliceblue;
+    float: right; /* Coloca el botón a la derecha */
 }

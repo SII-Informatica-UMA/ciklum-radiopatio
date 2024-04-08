@@ -22,13 +22,10 @@
           <span class="col-md-9 offset-2 offset-md-0">{{rutina?.ejercicios?}}</span>
          </div> -->
        
-         <div class="row">
-           <div class="col-md-3">
-             <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarRutina()">Eliminar <i class="bi bi-trash-fill"></i></button>
-           </div>
-           <div class="col-md-3">
-             <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarRutina()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
-           </div>
+         <div class="button-container">
+          <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarRutina()">Eliminar <i class="bi bi-trash-fill"></i></button>
+          <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarRutina()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
+        </div>
       </div>
     </div>
   </div>
