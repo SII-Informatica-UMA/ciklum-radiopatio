@@ -34,7 +34,7 @@ export class EjercicioFormularioComponent {
     const file: File = event.target.files[0];
     const reader = new FileReader();
       reader.onload = (e: any) => {
-        /*this.ejercicio.imagen = { src: e.target.result };*/
+        this.ejercicio.multimedia![0] = e.target.result;
       };
     reader.readAsDataURL(file);
   }

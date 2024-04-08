@@ -32,17 +32,20 @@
         <div class="row">
           <label class="col-md-3" for="dificultad">Dificultad:</label>
           <span class="col-md-9 offset-2 offset-md-0">{{ejercicio?.dificultad}}</span>
-        </div>
-         <!-- Añadir multimedia-->
-        <div class="row">
-          <label class="col-md-3" for="multimedia">Multimedia:</label>
+         </div>
+         <div class="row">
+          <label class="col-md-3" for="dificultad">Imagen:</label>
           <span class="col-md-9 offset-2 offset-md-0">
-            <ul>
-              <li *ngFor="let elemento of ejercicio?.multimedia">{{ elemento }}</li>
-            </ul>
+            <img *ngIf="ejercicio?.multimedia![0]" [src]="ejercicio?.multimedia![0]" class="img-fluid" />
+            <span *ngIf="!ejercicio?.multimedia![0]">No hay imagen seleccionada</span>
           </span>
-        </div>
-        <div class="button-container">
+         </div>
+         <div class="row">
+          <label class="col-md-3" for="dificultad">Video:</label>
+          <a *ngIf="ejercicio?.multimedia![1]" class="col-md-9 offset-2 offset-md-0"href="{{ejercicio?.multimedia![1]}}" target="_blank" >Enlace a video</a>
+         </div>
+     
+         <div class="button-container">
           <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
           <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarEjercicio()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
         </div>
