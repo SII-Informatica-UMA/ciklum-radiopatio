@@ -29,13 +29,11 @@ export class RutinasComponent implements OnInit {
     this.rutinaElegida = rutina;
   }
   rutinaEditada(rutina: RutinaDTO): void {
-    this.ejercicioService.putRutina(rutina.id,rutina);
-    this.actualizarRutinas();
+    this.ejercicioService.putRutina(rutina.id,rutina).subscribe(ejercicio => this.actualizarRutinas());
     this.rutinaElegida = this.rutinas.find(c => c.id == rutina.id);
   }
   eliminarRutina(id: number): void {
-    this.ejercicioService.deleteRutina(id);
-    this.actualizarRutinas();
+    this.ejercicioService.deleteRutina(id).subscribe(ejercicio => this.actualizarRutinas());
     this.rutinaElegida = undefined;
   }
   aniadirRutina(): void {
@@ -45,8 +43,7 @@ export class RutinasComponent implements OnInit {
     dificultad : "", multimedia : [], id : 0};
     ref.result.then((rutina: RutinaDTO) => {
       rutina.id = Math.max(...this.rutinas.map(c => c.id)) + 1;
-      this.ejercicioService.postRutina(this.idEntrenador,rutina);
-      this.actualizarRutinas();
+      this.ejercicioService.postRutina(this.idEntrenador,rutina).subscribe(ejercicio => this.actualizarRutinas());
     }, (reason) => {});
   }
 

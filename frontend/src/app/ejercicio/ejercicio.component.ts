@@ -33,13 +33,11 @@ export class EjercicioComponent implements OnInit {
     this.ejercicioElegido = ejercicio;
   }
   ejercicioEditado(ejercicio: EjercicioDTO): void {
-    this.ejercicioService.putEjercicio(ejercicio.id,ejercicio);
-    this.actualizarEjercicios();
+    this.ejercicioService.putEjercicio(ejercicio.id,ejercicio).subscribe(ejercicio => this.actualizarEjercicios());
     this.ejercicioElegido = this.ejercicios.find(c => c.id == ejercicio.id);
   }
   eliminarEjercicio(id: number): void {
-    this.ejercicioService.deleteEjercicio(id);
-    this.actualizarEjercicios();
+    this.ejercicioService.deleteEjercicio(id).subscribe(ejercicio => this.actualizarEjercicios());
     this.ejercicioElegido = undefined;
   }
   aniadirEjercicio(): void {
@@ -49,8 +47,7 @@ export class EjercicioComponent implements OnInit {
     dificultad : "", multimedia : [], id : 0};
     ref.result.then((ejercicio: EjercicioDTO) => {
       ejercicio.id = Math.max(...this.ejercicios.map(c => c.id)) + 1;
-      this.ejercicioService.postEjercicio(this.idEntrenador,ejercicio);
-      this.actualizarEjercicios();
+      this.ejercicioService.postEjercicio(this.idEntrenador,ejercicio).subscribe(ejercicio => this.actualizarEjercicios());
     }, (reason) => {});
   }
 
