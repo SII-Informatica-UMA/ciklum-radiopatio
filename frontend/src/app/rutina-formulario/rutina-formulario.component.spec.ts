@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RutinaFormularioComponent } from './rutina-formulario.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('RutinaFormularioComponent', () => {
   let component: RutinaFormularioComponent;
@@ -8,7 +9,7 @@ describe('RutinaFormularioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgbModule],
+      imports: [NgbModule,HttpClientModule],
       providers: [NgbActiveModal]
     })
     .compileComponents();
