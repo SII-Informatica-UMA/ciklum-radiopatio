@@ -5,7 +5,6 @@ import { EjerciciosService } from '../services/ejercicios.service';
 import { CommonModule } from '@angular/common';
 import { EjercicioDetallesComponent } from '../ejercicio-detalles/ejercicio-detalles.component';
 import { EjercicioFormularioComponent } from '../ejercicio-formulario/ejercicio-formulario.component';
-import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'app-ejercicio',
