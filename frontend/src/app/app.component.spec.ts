@@ -8,9 +8,14 @@ import { By } from '@angular/platform-browser';
   
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [],
       })
         .compileComponents();
+    });
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
     });
 
   it('should create the app', () => {
@@ -19,12 +24,6 @@ import { By } from '@angular/platform-browser';
     expect(app).toBeTruthy();
   });
 
-/*   it(`should have the 'ejercicios_rutinas' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ejercicios_rutinas');
-  });
- */
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
@@ -37,17 +36,22 @@ import { By } from '@angular/platform-browser';
     expect(carouselItems.length).toBe(3);
   });
 
-  it('should trigger verEjercicio method when "EJERCICIOS" button is clicked', () => {
-    spyOn(component, 'verEjercicio');
-    const button = fixture.debugElement.query(By.css('#boton_ejercicio'));
-    button.triggerEventHandler('click', null);
-    expect(component.verEjercicio).toHaveBeenCalled();
+
+  it('should call verRutina() when clicking on the rutinas button', () => {
+    spyOn(component, 'verRutina'); // "espia" la funcion verRutina() para comprobar si se llama
+
+    const button = fixture.debugElement.query(By.css('#boton_rutina')); 
+    button.triggerEventHandler('click', null); // simula un click en el boton de rutinas
+
+    expect(component.verRutina).toHaveBeenCalled(); // verifica que la funcion verRutina() se haya llamado
   });
 
-  it('should trigger verRutina method when "RUTINAS" button is clicked', () => {
-    spyOn(component, 'verRutina');
-    const button = fixture.debugElement.query(By.css('#boton_rutina'));
+  it('should call verEjercicio() when clicking on the ejercicios button', () => {
+    spyOn(component, 'verEjercicio');
+
+    const button = fixture.debugElement.query(By.css('#boton_ejercicio'));
     button.triggerEventHandler('click', null);
-    expect(component.verRutina).toHaveBeenCalled();
+
+    expect(component.verEjercicio).toHaveBeenCalled();
   });
 });

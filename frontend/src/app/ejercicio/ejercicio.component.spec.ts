@@ -37,8 +37,5 @@ describe('EjercicioComponent', () => {
     const button = fixture.debugElement.query(By.css('#boton_aniadir'));
     button.triggerEventHandler('click', null);
     expect(component.aniadirEjercicio).toHaveBeenCalled();
-  });
-
-  
-  
+  });  
 });

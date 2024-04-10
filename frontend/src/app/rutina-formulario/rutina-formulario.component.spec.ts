@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RutinaFormularioComponent } from './rutina-formulario.component';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('RutinaFormularioComponent', () => {
   let component: RutinaFormularioComponent;
@@ -8,7 +8,8 @@ describe('RutinaFormularioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RutinaFormularioComponent]
+      imports: [NgbModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
     
@@ -17,7 +18,24 @@ describe('RutinaFormularioComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should display correct title in the modal', () => {
+    fixture.componentInstance.accion = 'Añadir';
+    fixture.detectChanges();
+
+    const titleElement = fixture.nativeElement.querySelector('.modal-title');
+    expect(titleElement.textContent).toContain('Añadir rutina');
+  });
+
+  it('should enable save button when input fields are modified', () => {
+    const saveButton = fixture.nativeElement.querySelector('.btn-outline-dark');
+  
+    // Simulamos cambios en los campos de entrada
+    const nombreInput = fixture.nativeElement.querySelector('#nombre');
+    nombreInput.value = 'Nueva Rutina';
+    nombreInput.dispatchEvent(new Event('input'));
+  
+    fixture.detectChanges();
+  
+    expect(saveButton.disabled).toBe(false);
   });
 });
