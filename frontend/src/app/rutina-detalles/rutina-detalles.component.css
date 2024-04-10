@@ -22,7 +22,7 @@ h2 {
     text-align: center;
 }
 
-.col-md-4 {
+.col-md-4,.col-md-3{
     color: #73828e;
 }
 
@@ -33,4 +33,8 @@ h2 {
     margin-top: 10px;
     color: aliceblue;
     float: right; /* Coloca el botón a la derecha */
+}
+
+.col{
+    margin-top: 5px;
 }

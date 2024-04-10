@@ -19,12 +19,27 @@
             <label class="col-md-4" for="observaciones">Observaciones:</label>
             <span class="col-md-5">{{rutina?.observaciones}}</span>
            </div>
-           <!-- <div class="row">
-            <label class="col-md-3" for="ejercicios">Ejercicios:</label>
-            <span class="col-md-9 offset-2 offset-md-0">{{rutina?.ejercicios?}}</span>
-           </div> -->
-         
-           <div class="button-container">
+           <div class="row">
+              <label class="col-md-3" for="ejercicios">Ejercicios:</label>
+              <label class="col-md-3" for="duracion">Duracion:</label>
+              <label class="col-md-3" for="repeticiones">Repeticiones:</label>
+              <label class="col-md-3" for="series">Series:</label>
+           </div>
+           
+           
+           
+            <span  *ngFor="let ejercicio of rutina?.ejercicios"  >
+                <div class="row">
+                  <div class="col">{{ejercicio.ejercicio?.nombre}}</div>
+                  <div class="col">{{ejercicio.duracionMinutos}}</div>
+                  <div class="col">{{ejercicio.repeticiones}}</div>
+                  <div class="col">{{ejercicio.series}}</div>
+                </div>
+            
+            </span>
+            
+
+           <div class="button-container"> 
             <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarRutina()">Eliminar <i class="bi bi-trash-fill"></i></button>
             <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarRutina()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
           </div>

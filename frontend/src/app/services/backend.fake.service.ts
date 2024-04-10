@@ -53,6 +53,16 @@ export class BackendFakeService {
     {series: 8, repeticiones: 4, duracionMinutos: 0.5, ejercicio: this.ejercicios[0]},
     {series: 8, repeticiones: 4, duracionMinutos: 1, ejercicio: this.ejercicios[1]},
     {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[2]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[3]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[4]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[5]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[6]},
+    {series: 8, repeticiones: 4, duracionMinutos: 0.5, ejercicio: this.ejercicios[0]},
+    {series: 8, repeticiones: 4, duracionMinutos: 1, ejercicio: this.ejercicios[1]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[2]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[3]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[4]},
+    {series: 8, repeticiones: 4, duracionMinutos: 2, ejercicio: this.ejercicios[5]},
    ]
 
    private rutinas: RutinaDTO [] = [

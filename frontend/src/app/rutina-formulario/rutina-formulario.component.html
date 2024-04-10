@@ -9,11 +9,49 @@
         <label for="descripcion">Descripcion:</label>
         <textarea class="form-control" id="descripcion" [(ngModel)]="rutina.descripcion" placeholder="Breve descripcion de la rutina" rows="5"></textarea>
         <label for="observaciones">Observaciones:</label>
-        <input class="form-control" id="observaciones" [(ngModel)]="rutina.observaciones" placeholder="Observaciones del ejercicio">
-        <label for="ejercicios">Ejercicios:</label>
-        <input class="form-control" id="tipo" [(ngModel)]="rutina.ejercicios" placeholder="Tipo de ejercicio">
+        <input class="form-control" id="observaciones" [(ngModel)]="rutina.observaciones" placeholder="Observaciones de la rutina">
+        <div class="container text-center">
+          <div class="row align-items-start">
+            <div class="col"><label for="ejercicios">Ejercicios:</label></div>
+            <div class="col"><label for="duracion">Duracion:</label></div>
+            <div class="col"><label for="repeticiones">Repeticiones:</label></div>
+            <div class="col"><label for="series">Series:</label></div>
+          </div>
+        </div>
+        <div class="list-group list-group-scroll"> 
+          <span *ngFor="let ejercicio of nuevosEjercicios"  >
+            <div class="container text-center">
+              <div class="row align-items-start">
+                <div class="col">
+                  
+                  <div class="btn-group dropstart">
+                    <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-expanded="false"> </button>
+                      <button class=" btn btn-outline-secondary" (click)="elegirEjercicio(ejercicio)" [class.active]="ejercicioElegido === ejercicio">{{ejercicio.ejercicio?.nombre}}</button>
+                    
+                  <ul class="dropdown-menu">
+                    
+                    @for (ejercicioC of ejerciciosCreados; track ejercicioC.id) {
+                      <li><button class="dropdown-item" (click)="cambiarEjercicio(ejercicioC,ejercicio)" [class.active]="ejercicioC === ejercicio?.ejercicio">{{ejercicioC.nombre}}</button></li>
+                    }
+                  </ul>
+                </div>
+                </div>
+                <div class="col">
+                  <input class="form-control" id="duracionMinutos" [(ngModel)]="ejercicio.duracionMinutos" placeholder="Duracion Minutos">
+                </div>
+                <div class="col">
+                  <input class="form-control" id="repeticiones" [(ngModel)]="ejercicio.repeticiones" placeholder="Repeticiones">
+                </div>
+                <div class="col">
+                  <input class="form-control" id="series" [(ngModel)]="ejercicio.series" placeholder="Series">
+                </div>
+              </div></div>
+            </span>
+        </div>
+        <button type="button" class="btn btn-outline-primary" id="boton_aniadir" (click)="aniadirEjercicio()">Añadir Ejercicio </button> 
+        <button type="button" class="btn btn-outline-danger" id="boton_eliminar" (click)="eliminarEjercicio()">Eliminar Ejercicio <i class="bi bi-trash-fill"></i></button> 
+      </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="guardarRutina()">Guardar <i class="bi bi-bookmark-check-fill"></i></button>
-  </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="guardarRutina()">Guardar <i class="bi bi-bookmark-check-fill"></i></button>
+    </div>
