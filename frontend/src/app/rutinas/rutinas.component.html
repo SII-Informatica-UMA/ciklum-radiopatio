@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Lista de rutinas</h2>
+        <div class="list-container"> 
+          <div class="list-group list-group-scroll"> 
+            <button *ngFor="let rutina of rutinas" class="list-group-item list-group-item-action" (click)="elegirRutina(rutina)" [class.active]="rutina === rutinaElegida">{{rutina.nombre}}</button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <button id="boton_aniadir" type="button" class="btn btn-primary" (click)="aniadirRutina()">Añadir rutina <i class="bi bi-plus-circle"></i></button>
+        </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" *ngIf="rutinaElegida">
+            <app-rutina-detalles [rutina]="rutinaElegida" (rutinaEditada)="rutinaEditada($event)" (rutinaEliminada)="eliminarRutina($event)"></app-rutina-detalles> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

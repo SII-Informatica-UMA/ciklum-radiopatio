@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Lista de ejercicios</h2>
+          <div class="list-container"> 
+            <div class="list-group list-group-scroll"> 
+              <button *ngFor="let ejercicio of ejercicios" class="list-group-item list-group-item-action" (click)="elegirEjercicio(ejercicio)" [class.active]="ejercicio === ejercicioElegido">{{ejercicio.nombre}}</button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <button id="boton_aniadir" type="button" class="btn btn-primary" (click)="aniadirEjercicio()">Añadir ejercicio <i class="bi bi-plus-circle"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12" *ngIf="ejercicioElegido">
+          <app-ejercicio-detalles [ejercicio]="ejercicioElegido" (ejercicioEditado)="ejercicioEditado($event)" (ejercicioEliminado)="eliminarEjercicio($event)"></app-ejercicio-detalles> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

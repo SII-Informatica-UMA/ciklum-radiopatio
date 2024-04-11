@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-12 offset-md-3">
+    <div class="container">
+      <div class="list-container">
+        <div class="list-group list-group-scroll">
+          <div class="row white-background">
+            <h2 >Detalles de {{rutina?.nombre}}</h2>
+           </div>
+           
+           <div class="row white-background">
+             <label class="col-md-4" for="nombre">Nombre:</label>
+             <span class="col-md-5">{{rutina?.nombre}}</span>
+           </div>
+           <div class="row">
+             <label class="col-md-4" for="descripcion">Descripcion:</label>
+             <span class="col-md-5 col-10">{{rutina?.descripcion}}</span>
+           </div>
+           <div class="row">
+            <label class="col-md-4" for="observaciones">Observaciones:</label>
+            <span class="col-md-5">{{rutina?.observaciones}}</span>
+           </div>
+           <div class="row">
+              <label class="col-md-3" for="ejercicios">Ejercicios:</label>
+              <label class="col-md-3" for="duracion">Duracion:</label>
+              <label class="col-md-3" for="repeticiones">Repeticiones:</label>
+              <label class="col-md-3" for="series">Series:</label>
+           </div>
+           
+           
+           
+            <span  *ngFor="let ejercicio of rutina?.ejercicios"  >
+                <div class="row">
+                  <div class="col-md-3">{{ejercicio.ejercicio?.nombre}}</div>
+                  <div class="col-md-3">{{ejercicio.duracionMinutos}}</div>
+                  <div class="col-md-3">{{ejercicio.repeticiones}}</div>
+                  <div class="col-md-3">{{ejercicio.series}}</div>
+                </div>
+            
+            </span>
+            
+
+           <div class="button-container"> 
+            <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarRutina()">Eliminar <i class="bi bi-trash-fill"></i></button>
+            <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarRutina()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

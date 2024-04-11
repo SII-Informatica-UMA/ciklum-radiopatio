@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-12 offset-md-3">
+    <div class="container">
+      <div class="list-container">
+        <div class="list-group list-group-scroll">
+          <div class="row white-background">
+            <h2 >Detalles de {{ejercicio?.nombre}}</h2>
+           </div>
+           
+           <div class="row white-background">
+             <label class="col-md-4" for="nombre">Nombre:</label>
+             <span class="col-md-5 col-10">{{ejercicio?.nombre}}</span>
+           </div>
+           <div class="row">
+             <label class="col-md-4" for="descripcion">Descripcion:</label>
+             <span class="col-md-5 col-10">{{ejercicio?.descripcion}}</span>
+           </div>
+           <div class="row">
+            <label class="col-md-4" for="observaciones">Observaciones:</label>
+            <span class="col-md-5 col-10">{{ejercicio?.observaciones}}</span>
+           </div>
+           <div class="row">
+            <label class="col-md-4" for="tipo">Tipo:</label>
+            <span class="col-md-5 col-10">{{ejercicio?.tipo}}</span>
+           </div>
+           <div class="row">
+             <label class="col-md-4" for="musculosTrabajados">Musculos Trabajados:</label>
+             <span class="col-md-5 col-10">{{ejercicio?.musculosTrabajados}}</span>
+            </div>
+            <div class="row">
+              <label class="col-md-4" for="materiales">Materiales:</label>
+              <span class="col-md-5 col-10">{{ejercicio?.material}}</span>
+            </div>
+            <div class="row">
+              <label class="col-md-4" for="dificultad">Dificultad:</label>
+              <span class="col-md-5 col-10">{{ejercicio?.dificultad}}</span>
+             </div>
+             <div class="row">
+              <label class="col-md-4" for="dificultad">Imagen:</label>
+              <span class="col-md-5 col-10">
+                <img *ngIf="ejercicio?.multimedia![0]" [src]="ejercicio?.multimedia![0]" class="img-fluid" />
+                <span *ngIf="!ejercicio?.multimedia![0]">No hay imagen seleccionada</span>
+              </span>
+             </div>
+             <div class="row">
+              <label class="col-md-4" for="dificultad">Video:</label>
+              <a *ngIf="ejercicio?.multimedia![1]" class="col-md-5 col-10"href="{{ejercicio?.multimedia![1]}}" target="_blank" >Enlace a video</a>
+             </div>
+         
+             <div class="button-container">
+              <button class="col-auto btn btn-danger" id="boton_eliminar" (click)="eliminarEjercicio()">Eliminar <i class="bi bi-trash-fill"></i></button>
+              <button class="col-auto btn btn-primary" id="boton_editar" (click)="editarEjercicio()">Editar <i class="bi bi-box-arrow-up-right"></i></button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

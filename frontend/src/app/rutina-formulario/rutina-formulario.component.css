@@ -1,0 +1,11 @@
+#boton_aniadir ,#boton_eliminar, #boton_editar {
+    margin: 2px;
+    margin-top: 6px;
+    float: center; /* Coloca el botón a la derecha */
+}
+
+.col{
+    margin-top: 5px;
+    text-align: center;
+
+}

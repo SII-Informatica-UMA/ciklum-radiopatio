@@ -20,6 +20,16 @@ mover_archivos_de_rama.txt
 Git_Flow.png
 *.code-workspace
 
+microservicio_frontend_ejercicios.jpg
+microservicio_frontend_usuarios.jpg
+pagina-inicio-demo-gimnasio-avada.jpg
+
+contactos.service.spec.ts
+app.component.spec.ts
+
+comandos_basicos_GIT.txt
+
+db.mv.db
 #Github Node gitignore
 #*node_modules/
 #*.angular/

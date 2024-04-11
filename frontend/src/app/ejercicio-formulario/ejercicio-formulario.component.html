@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{accion}} ejercicio</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cierre usuario')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input class="form-control" id="nombre" [(ngModel)]="ejercicio.nombre" placeholder="Nombre">
+        <label for="descripcion">Descripcion:</label>
+        <textarea class="form-control" id="descripcion" [(ngModel)]="ejercicio.descripcion" placeholder="Breve descripcion del ejercicio" rows="5"></textarea>
+        <label for="observaciones">Observaciones:</label>
+        <input class="form-control" id="observaciones" [(ngModel)]="ejercicio.observaciones" placeholder="Observaciones del ejercicio">
+        <label for="tipo">Tipo:</label>
+        <input class="form-control" id="tipo" [(ngModel)]="ejercicio.tipo" placeholder="Tipo de ejercicio">
+        <label for="musculosTrabajados">Musculos Trabajados:</label>
+        <input class="form-control" id="musculosTrabajados" [(ngModel)]="ejercicio.musculosTrabajados" placeholder="Musculos Trabajados">
+        <label for="material">Material:</label>
+        <input class="form-control" id="material" [(ngModel)]="ejercicio.material" placeholder="Materiales necesarios">
+        <label for="dificultad">Dificultad:</label>
+        <input class="form-control" id="dificultad" [(ngModel)]="ejercicio.dificultad" placeholder="Dificultado del ejercicio">
+        <label for="imagen">Imagen:</label>
+        <input class="form-control" id="imagen"  [(ngModel)]="ejercicio.multimedia![0]" placeholder="Imagen del ejercicio" >
+        <label for="video">Video:</label>
+        <input class="form-control" id="video" [(ngModel)]="ejercicio.multimedia![1]" placeholder="Video del ejercicio">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="guardarEjercicio()">Guardar <i class="bi bi-bookmark-check-fill"></i></button>
+  </div>
