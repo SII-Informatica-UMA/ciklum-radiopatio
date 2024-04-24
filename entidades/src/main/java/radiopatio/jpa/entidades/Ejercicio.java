@@ -22,6 +22,20 @@ public class Ejercicio {
     private List<String> multimedia;
     private Long idEntrenador;
 
+    public Ejercicio(Long id, String nombre, String descripcion, String observaciones, String tipo, String musculosTrabajados, String material, String dificultad, List<String> multimedia, Long idEntrenador){
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.observaciones = observaciones;
+        this.tipo = tipo;
+        this.musculosTrabajados = musculosTrabajados;
+        this.material = material;
+        this.dificultad = dificultad;
+        this.multimedia = multimedia;
+        this.idEntrenador = idEntrenador;
+    }
+
+
     public Long getId() {
         return this.id;
     }

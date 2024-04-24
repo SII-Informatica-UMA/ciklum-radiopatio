@@ -20,6 +20,16 @@ public class Rutina {
     private List<FragmentoRutina> ejercicios;
     private Long idEntrenador;
 
+    public Rutina(Long id, String nombre, String descripcion, String observaciones, List<FragmentoRutina> ejercicios, Long idEntrenador){
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.observaciones = observaciones;
+        this.ejercicios = ejercicios;
+        this.idEntrenador = idEntrenador;
+    }
+
+
     public Long getId() {
         return this.id;
     }

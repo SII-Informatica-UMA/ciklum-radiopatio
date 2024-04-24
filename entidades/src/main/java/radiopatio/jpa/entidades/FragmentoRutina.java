@@ -17,6 +17,14 @@ public class FragmentoRutina {
     @ManyToOne
     private Ejercicio ejercicio;
 
+    public FragmentoRutina(Long id, Integer series, Integer repeticiones, Integer duracionMinutos, Ejercicio ejercicio){
+        this.id = id;
+        this.series = series;
+        this.repeticiones = repeticiones;
+        this.duracionMinutos = duracionMinutos;
+        this.ejercicio = ejercicio;
+    }
+
     public Long getId() {
         return this.id;
     }
