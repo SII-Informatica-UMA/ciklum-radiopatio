@@ -1,8 +1,11 @@
+package radiopatio.jpa.entidades;
+
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.util.List;
+import java.util.Objects;
 @Entity
 public class Ejercicio {
     @Id
