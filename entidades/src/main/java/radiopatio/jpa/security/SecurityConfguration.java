@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 //import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,22 +31,20 @@ public class SecurityConfguration {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    @SuppressWarnings({ "deprecation", "rawtypes" })
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors().disable()
-            .csrf().disable()
-            /* .authorizeRequests(
-                    authorizeRequests -> ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl) authorizeRequests
-                            .anyRequest()).authenticated()) */
-                        
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeHttpRequests(registry -> registry
-                    .requestMatchers("/").permitAll()
-                    .anyRequest().authenticated()
-
-            
-            );
+                .csrf(cs -> cs.disable())
+                .authorizeRequests(
+                        authorizeRequests -> ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl) authorizeRequests
+                                .anyRequest()).permitAll())
+                .sessionManagement(
+                        sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                /* .authorizeHttpRequests(registry -> registry
+                        .requestMatchers("/").permitAll()
+                        .anyRequest().authenticated()
+                );       */ 
         http.addFilterBefore((Filter) this.jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return (SecurityFilterChain) http.build();
     }
