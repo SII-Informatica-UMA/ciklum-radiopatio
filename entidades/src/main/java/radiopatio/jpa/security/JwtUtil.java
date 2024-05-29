@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +44,12 @@ public class JwtUtil {
         return Boolean.valueOf(expiration.before(new Date()));
     }
 
+     //generate token for user
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        return doGenerateToken(claims, userDetails.getUsername());
+    }
+
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         byte[] keyBytes = this.secret.getBytes();
         Key key = Keys.hmacShaKeyFor(keyBytes);
@@ -54,8 +61,7 @@ public class JwtUtil {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        String username = getUsernameFromToken(token);
-        return Boolean
-                .valueOf((username.equals(userDetails.getUsername()) && !isTokenExpired(token).booleanValue()));
+        final String username = getUsernameFromToken(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

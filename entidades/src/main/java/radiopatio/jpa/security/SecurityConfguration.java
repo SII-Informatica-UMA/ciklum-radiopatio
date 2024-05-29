@@ -41,10 +41,7 @@ public class SecurityConfguration {
                                 .anyRequest()).permitAll())
                 .sessionManagement(
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-                /* .authorizeHttpRequests(registry -> registry
-                        .requestMatchers("/").permitAll()
-                        .anyRequest().authenticated()
-                );       */ 
+ 
         http.addFilterBefore((Filter) this.jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return (SecurityFilterChain) http.build();
     }
