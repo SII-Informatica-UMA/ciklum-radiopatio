@@ -48,9 +48,11 @@ public class RutinaService {
         if (rutina.getId() != null) {
             obtenerRutina(rutina.getId()).ifPresentOrElse(r -> {
                 comprobarPermiso(r);
-            }, RutinaNoEncontradaException::new);
+            }, () -> {
+                throw new RutinaNoEncontradaException();
+            });
         }
         this.rutinaRepo.save(rutina);
-        return this.rutinaRepo.findById(rutina.getId()).get();
+        return this.rutinaRepo.findById(rutina.getId()).orElseThrow(RutinaNoEncontradaException::new);
     }
 }

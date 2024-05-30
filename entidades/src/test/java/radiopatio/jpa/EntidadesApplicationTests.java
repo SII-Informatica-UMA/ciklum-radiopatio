@@ -8,13 +8,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import radiopatio.jpa.entidades.Rutina;
 import radiopatio.jpa.exceptions.EjercicioEnRutinaException;
+import radiopatio.jpa.exceptions.RutinaNoEncontradaException;
 import radiopatio.jpa.repositorios.EjercicioRepositorio;
 import radiopatio.jpa.repositorios.RutinaRepositorio;
 import radiopatio.jpa.servicios.EjercicioService;
+import radiopatio.jpa.servicios.RutinaService;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class EntidadesAppiclationTests {
@@ -27,6 +35,9 @@ class EntidadesAppiclationTests {
 
     @InjectMocks
     private EjercicioService ejercicioService;
+
+    @InjectMocks
+    private RutinaService rutinaService;
 
     @BeforeEach
     void setUp() {
@@ -59,5 +70,66 @@ class EntidadesAppiclationTests {
         // Act & Assert
         assertThrows(EjercicioEnRutinaException.class, () -> ejercicioService.eliminarEjercicio(idEjercicio));
         verify(ejercicioRepositorio, never()).deleteById(idEjercicio);
+    }
+
+    @Test
+    @DisplayName("Debería lanzar RutinaNoEncontradaException si la rutina no existe")
+    void deberiaLanzarRutinaNoEncontradaExceptionSiRutinaNoExiste() {
+        // Arrange
+        Rutina rutinaNoExistente = new Rutina();
+        rutinaNoExistente.setId(1L);
+        rutinaNoExistente.setNombre("Rutina no existente");
+
+        when(rutinaRepositorio.findById(1L)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(RutinaNoEncontradaException.class, () -> rutinaService.crearActualizarRutina(rutinaNoExistente));
+    }
+
+    @Test
+    @DisplayName("Simula una rutina para y comprueba que es eliminada")
+    public void EliminarRutinaExistente() {
+        // Crea una rutina de prueba con un ID válido
+        Long idRutina = 1L;
+        Rutina rutina = new Rutina();
+        rutina.setId(idRutina);
+
+        // Simula que la rutina existe en el repositorio
+        when(rutinaRepositorio.findById(idRutina)).thenReturn(Optional.of(rutina));
+
+        // Llama al método eliminarRutina
+        rutinaService.eliminarRutina(idRutina);
+
+        // Verifica que se haya llamado al método deleteById con el ID correcto
+        verify(rutinaRepositorio).deleteById(idRutina);
+    }
+
+    @Test
+    @DisplayName("Devuelve una excepcion cuando no encuentra la rutina")
+    public void EliminarRutinaNoEncontrada() {
+        // Intenta eliminar una rutina inexistente (ID inválido)
+        Long idRutinaInexistente = 999L;
+
+        // Simula que la rutina no existe en el repositorio
+        when(rutinaRepositorio.findById(idRutinaInexistente)).thenReturn(Optional.empty());
+
+        // Verifica que se lance la excepción RutinaNoEncontradaException
+        assertThrows(RutinaNoEncontradaException.class, () -> {
+            rutinaService.eliminarRutina(idRutinaInexistente);
+        });
+    }
+
+    @Test
+    @DisplayName("Dado un id de entrenador, devuelve una lista con las rutinas que tiene asignadas")
+    void ObtenerRutinas() {
+        // La idea es que devuelva una lista con las rutinas, dependiendo del id del
+        // entrenador
+        Long idEntrenador = 123L;
+        List<Rutina> rutinasDePrueba = List.of(new Rutina(), new Rutina());
+
+        when(rutinaRepositorio.findByIdEntrenador(idEntrenador)).thenReturn(rutinasDePrueba);
+
+        List<Rutina> rutinasObtenidas = rutinaService.obtenerRutinas(idEntrenador);
+        assertEquals(rutinasDePrueba.size(), rutinasObtenidas.size());
     }
 }
