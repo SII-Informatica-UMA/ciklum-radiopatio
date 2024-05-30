@@ -48,6 +48,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            @SuppressWarnings("unchecked")
             UserDetails userDetails = new User(username, "", Collections.EMPTY_LIST);
 
             if (!jwtTokenUtil.isTokenExpired(jwtToken)) {

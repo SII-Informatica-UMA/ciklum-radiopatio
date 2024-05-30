@@ -1,8 +1,5 @@
 package radiopatio.jpa.security;
 
-
-
-
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
