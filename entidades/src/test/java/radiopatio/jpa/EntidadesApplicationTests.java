@@ -8,9 +8,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import radiopatio.jpa.controladores.EjercicioController;
+import radiopatio.jpa.dtos.EjercicioDTO;
+import radiopatio.jpa.dtos.EjercicioNuevoDTO;
+import radiopatio.jpa.entidades.Ejercicio;
 import radiopatio.jpa.entidades.Rutina;
 import radiopatio.jpa.exceptions.EjercicioEnRutinaException;
+import radiopatio.jpa.exceptions.EjercicioNoEncontradoException;
 import radiopatio.jpa.exceptions.RutinaNoEncontradaException;
 import radiopatio.jpa.repositorios.EjercicioRepositorio;
 import radiopatio.jpa.repositorios.RutinaRepositorio;
@@ -21,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +44,12 @@ class EntidadesAppiclationTests {
 
     @InjectMocks
     private EjercicioService ejercicioService;
+
+    @InjectMocks
+    private EjercicioController ejercicioController;
+
+    @Mock
+    private EjercicioService ejercicioService2;
 
     @InjectMocks
     private RutinaService rutinaService;
@@ -126,5 +141,75 @@ class EntidadesAppiclationTests {
         assertEquals(rutinasDePrueba.size(), rutinasObtenidas.size());
     }
 
+    // Test Controladores
+    @Test
+    @DisplayName("Simular que el ejercicio existe y lo elimina")
+    public void testEliminarEjercicio() {
+        Long idEjercicio = 1L;
 
+        when(ejercicioService2.obtenerEjercicio(idEjercicio)).thenReturn(Optional.of(new Ejercicio()));
+
+        ejercicioController.eliminarEjercicio(idEjercicio);
+    }
+
+    @Test
+    @DisplayName("Simular que el ejercicio no existe y por tanto arroja excepcion")
+    public void testEliminarEjercicio_NoEncontrado() {
+        Long idEjercicio = 1L;
+
+        when(ejercicioService2.obtenerEjercicio(idEjercicio)).thenReturn(Optional.empty());
+
+        try {
+            ejercicioController.eliminarEjercicio(idEjercicio);
+        } catch (EjercicioNoEncontradoException e) {
+        }
+    }
+
+    @Test
+    @DisplayName("Simula que el ejercicio existe pero está en una rutina")
+    public void testEliminarEjercicio_EnRutina() {
+        Long idEjercicio = 1L;
+
+        when(ejercicioService2.obtenerEjercicio(idEjercicio)).thenReturn(Optional.of(new Ejercicio()));
+        doThrow(new EjercicioEnRutinaException()).when(ejercicioService2).eliminarEjercicio(idEjercicio);
+
+        try {
+            ejercicioController.eliminarEjercicio(idEjercicio);
+        } catch (EjercicioEnRutinaException e) {
+        }
+    }
+
+    @Test
+    public void testCrearEjercicio() {
+        Long idEntrenador = 1L;
+        EjercicioNuevoDTO ejercicioNuevoDTO = new EjercicioNuevoDTO();
+        ejercicioNuevoDTO.setNombre("Ejercicio de prueba");
+
+        // Simular el ejercicio creado por el servicio
+        Ejercicio ejercicioCreado = new Ejercicio();
+        ejercicioCreado.setId(1L);
+        ejercicioCreado.setNombre("Ejercicio de prueba");
+
+        // Simular el método del servicio para crear el ejercicio
+        when(ejercicioService2.crearActualizarEjercicio(any(Ejercicio.class))).thenReturn(ejercicioCreado);
+
+        // Simular la creación de la URI
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
+        URI expectedUri = URI.create("/ejercicio/1"); // URI esperada después de la creación del ejercicio
+        //URI expectedUri = URI.create("http://localhost/ejercicio/1"); // URI esperada después de la creación del ejercicio
+        
+        // Llamar al método crearEjercicio del controlador
+        ResponseEntity<EjercicioDTO> response = ejercicioController.crearEjercicio(idEntrenador, ejercicioNuevoDTO, uriBuilder);
+
+        // Verificar que se devuelva un código de estado 201 (CREATED)
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+
+        // Verificar que la URI del recurso creado coincida con la URI esperada
+        assertEquals(expectedUri, response.getHeaders().getLocation());
+
+        // Verificar que el ejercicio devuelto coincide con el ejercicio creado
+        EjercicioDTO ejercicioDTO = response.getBody();
+        assertEquals(ejercicioCreado.getId(), ejercicioDTO.getId());
+        assertEquals(ejercicioCreado.getNombre(), ejercicioDTO.getNombre());
+    }
 }
