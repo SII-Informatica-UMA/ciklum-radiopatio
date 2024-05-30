@@ -47,27 +47,22 @@ class EntidadesAppiclationTests {
     @Test
     @DisplayName("Debería eliminar el ejercicio si no está en una rutina")
     void deberiaEliminarEjercicioSiNoEstaEnUnaRutina() {
-        // Arrange
         Long idEjercicio = 1L;
 
         when(rutinaRepositorio.existsRutinaWithEjercicio(idEjercicio)).thenReturn(false);
 
-        // Act
         ejercicioService.eliminarEjercicio(idEjercicio);
 
-        // Assert
         verify(ejercicioRepositorio, times(1)).deleteById(idEjercicio);
     }
 
     @Test
     @DisplayName("Debería lanzar EjercicioEnRutinaException si el ejercicio está en una rutina")
     void deberiaLanzarEjercicioEnRutinaExceptionSiEjercicioEstaEnRutina() {
-        // Arrange
         Long idEjercicio = 1L;
 
         when(rutinaRepositorio.existsRutinaWithEjercicio(idEjercicio)).thenReturn(true);
 
-        // Act & Assert
         assertThrows(EjercicioEnRutinaException.class, () -> ejercicioService.eliminarEjercicio(idEjercicio));
         verify(ejercicioRepositorio, never()).deleteById(idEjercicio);
     }
@@ -75,14 +70,12 @@ class EntidadesAppiclationTests {
     @Test
     @DisplayName("Debería lanzar RutinaNoEncontradaException si la rutina no existe")
     void deberiaLanzarRutinaNoEncontradaExceptionSiRutinaNoExiste() {
-        // Arrange
         Rutina rutinaNoExistente = new Rutina();
         rutinaNoExistente.setId(1L);
         rutinaNoExistente.setNombre("Rutina no existente");
 
         when(rutinaRepositorio.findById(1L)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(RutinaNoEncontradaException.class, () -> rutinaService.crearActualizarRutina(rutinaNoExistente));
     }
 
@@ -132,4 +125,6 @@ class EntidadesAppiclationTests {
         List<Rutina> rutinasObtenidas = rutinaService.obtenerRutinas(idEntrenador);
         assertEquals(rutinasDePrueba.size(), rutinasObtenidas.size());
     }
+
+
 }
