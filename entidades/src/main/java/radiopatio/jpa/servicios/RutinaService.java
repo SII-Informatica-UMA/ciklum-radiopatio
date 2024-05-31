@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import radiopatio.jpa.entidades.Ejercicio;
 import radiopatio.jpa.entidades.Rutina;
 import radiopatio.jpa.exceptions.RutinaNoEncontradaException;
 import radiopatio.jpa.repositorios.RutinaRepositorio;
@@ -45,14 +46,7 @@ public class RutinaService {
     }
 
     public Rutina crearActualizarRutina(Rutina rutina) {
-        if (rutina.getId() != null) {
-            obtenerRutina(rutina.getId()).ifPresentOrElse(r -> {
-                comprobarPermiso(r);
-            }, () -> {
-                throw new RutinaNoEncontradaException();
-            });
-        }
-        this.rutinaRepo.save(rutina);
-        return this.rutinaRepo.findById(rutina.getId()).orElseThrow(RutinaNoEncontradaException::new);
+        comprobarPermiso(rutina);
+        return (Rutina) this.rutinaRepo.save(rutina);
     }
 }
