@@ -26,9 +26,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import radiopatio.jpa.dtos.EjercicioDTO;
 import radiopatio.jpa.dtos.RutinaDTO;
 import radiopatio.jpa.dtos.RutinaNuevaDTO;
+import radiopatio.jpa.entidades.Ejercicio;
 import radiopatio.jpa.entidades.Rutina;
+import radiopatio.jpa.exceptions.EjercicioNoEncontradoException;
 import radiopatio.jpa.exceptions.RutinaNoEncontradaException;
 import radiopatio.jpa.servicios.RutinaService;
 
@@ -57,11 +60,13 @@ public class RutinaController {
     @PutMapping({"/{idRutina}"})
     @Operation(description = "Para que entrenador creador actualice la rutina", responses = {@ApiResponse(responseCode = "200", description = "Rutina actualizada"), @ApiResponse(responseCode = "404", description = "La rutina no existe", content = {@Content(schema = @Schema(implementation = Void.class))}), @ApiResponse(responseCode = "403", description = "Acceso no autorizado", content = {@Content(schema = @Schema(implementation = Void.class))})})
     public RutinaDTO actualizarRutina(@PathVariable Long idRutina, @RequestBody RutinaDTO rutina) {
-        Rutina original = this.rutinaService.obtenerRutina(idRutina).orElseThrow(RutinaNoEncontradaException::new);
-        Rutina r = rutina.toEntity();
-        r.setId(idRutina);
-        r.setIdEntrenador(original.getIdEntrenador());
-        return RutinaDTO.fromEntity(this.rutinaService.crearActualizarRutina(r));
+        Rutina original = this.rutinaService.obtenerRutina(idRutina).orElseThrow(() -> {
+            return new RutinaNoEncontradaException();
+        });
+        Rutina g = rutina.toEntity();
+        g.setId(idRutina);
+        g.setIdEntrenador(original.getIdEntrenador());
+        return RutinaDTO.fromEntity(this.rutinaService.crearActualizarRutina(g));
     }
     private Function<Rutina, URI> generadorUri(UriComponents uriBuilder) {
         return g -> {

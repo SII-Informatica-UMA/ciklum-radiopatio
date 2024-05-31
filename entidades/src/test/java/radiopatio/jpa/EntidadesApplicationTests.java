@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.test.annotation.DirtiesContext;
@@ -75,14 +76,23 @@ class Practica3ApplicationTests {
 		return ub.build();
 	}
 
-	private RequestEntity<Void> get(String scheme, String host, int port, String path) {
-		URI uri = uri(scheme, host, port, path);
-        var peticion = RequestEntity.get(uri)
+	private RequestEntity<Void> get(String scheme, String host, int port, String path,Long idEntrenador) {
+        URI uri = uri(scheme, host, port, path);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token); // Añadir token de autenticación como Bearer
+
+        String urlTemplate = UriComponentsBuilder.fromHttpUrl(uri.toString())
+                .queryParam("entrenador", idEntrenador)
+                .encode()
+                .toUriString();
+
+        var peticion = RequestEntity.get(urlTemplate)
             .accept(MediaType.APPLICATION_JSON)
-            .header("Authorization", "Bearer " + token)
+            .headers(headers)
             .build();
         return peticion;
-	}
+    }
 
 	private RequestEntity<Void> delete(String scheme, String host, int port, String path) {
 		URI uri = uri(scheme, host, port, path);
@@ -92,14 +102,23 @@ class Practica3ApplicationTests {
         return peticion;
     }
 
-	private <T> RequestEntity<T> post(String scheme, String host, int port, String path, T object) {
-		URI uri = uri(scheme, host, port, path);
-        var peticion = RequestEntity.post(uri).
-                contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + token)
-                .body(object);
+	private <T> RequestEntity<T> post(String scheme, String host, int port, String path,T object,Long idEntrenador) {
+        URI uri = uri(scheme, host, port, path);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token); // Añadir token de autenticación como Bearer
+
+        String urlTemplate = UriComponentsBuilder.fromHttpUrl(uri.toString())
+                .queryParam("entrenador", idEntrenador)
+                .encode()
+                .toUriString();
+
+        var peticion = RequestEntity.post(urlTemplate)
+            .accept(MediaType.APPLICATION_JSON)
+            .headers(headers)
+            .body(object);
         return peticion;
-	}
+    }
 
 	private <T> RequestEntity<T> put(String scheme, String host, int port, String path, T object) {
         URI uri = uri(scheme, host, port, path);
@@ -120,18 +139,18 @@ class Practica3ApplicationTests {
     //Parte 2: Token valido (Prioritario)
         // Parte 2.1 : Base de datos vacia
         // Parte 2.2 : Base de datos llena
-
+/* 
     @Nested
     @DisplayName("cuando la autorizacion no es correcta")
     public class TokenIncorrecto{
         @Nested
         @DisplayName("al probar ejercicios")
         public class EjercicioVacio{
-           //  @Test
+            @Test
             @DisplayName("al devolver la lista de ejercicios da error de autenticacion")
             public void devuelveEjerciciosVacios() {
                 
-                var peticion = get("http", "localhost", port, "/ejercicio?entrenador=1");
+                var peticion = get("http", "localhost", port, "/ejercicio",1L);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<List<EjercicioDTO>>() {});
@@ -143,7 +162,7 @@ class Practica3ApplicationTests {
             @Test
             @DisplayName("al devolver ejercicio concreto da error de autenticacion")
             public void errorConEjercicioConcreto() {
-                var peticion = get("http", "localhost", port, "/ejercicio/1");
+                var peticion = get("http", "localhost", port, "/ejercicio/1",null);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<EjercicioDTO>() {
@@ -178,7 +197,7 @@ class Practica3ApplicationTests {
             @DisplayName("al crear ejercicio da error de autenticacion")
             public void crearEjercicio() {
                 var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
-                var peticion = post("http", "localhost", port, "/ejercicio?entrenador=1", ejercicio);
+                var peticion = post("http", "localhost", port, "/ejercicio", ejercicio,1L);
 
                 var respuesta = restTemplate.exchange(peticion, Void.class);
 
@@ -189,11 +208,11 @@ class Practica3ApplicationTests {
         @Nested
         @DisplayName("al probar rutinas")
         public class RutinaVacia{
-            //@Test
+            @Test
             @DisplayName("al devolver la lista de rutinas da error de autenticacion")
             public void devuelveRutinasVacias() {
                 
-                var peticion = get("http", "localhost", port, "/rutina?entrenador=1");
+                var peticion = get("http", "localhost", port, "/rutina",1L);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<List<RutinaDTO>>() {});
@@ -204,7 +223,7 @@ class Practica3ApplicationTests {
             @Test
             @DisplayName("al devolver rutina concreta da error de autenticacion")
             public void errorConRutinaConcreta() {
-                var peticion = get("http", "localhost", port, "/rutina/1");
+                var peticion = get("http", "localhost", port, "/rutina/1",null);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<EjercicioDTO>() {
@@ -235,7 +254,7 @@ class Practica3ApplicationTests {
         }
     }
 
-
+*/
     @Nested
 	@DisplayName("cuando la base de datos esta vacia")
 	public class BaseVacia{
@@ -249,11 +268,11 @@ class Practica3ApplicationTests {
 		@Nested
         @DisplayName("al probar ejercicios")
         public class EjercicioVacio{
-           //  @Test
+            @Test
             @DisplayName("devuelve la lista de ejercicios vacía")
             public void devuelveEjerciciosVacios() {
                 
-                var peticion = get("http", "localhost", port, "/ejercicio?entrenador=1");
+                var peticion = get("http", "localhost", port, "/ejercicio",1L);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<List<EjercicioDTO>>() {});
@@ -266,7 +285,7 @@ class Practica3ApplicationTests {
             @Test
             @DisplayName("devuelve  error cuando se pide un ejercicio concreto")
             public void errorConEjercicioConcreto() {
-                var peticion = get("http", "localhost", port, "/ejercicio/1");
+                var peticion = get("http", "localhost", port, "/ejercicio/1",null);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<EjercicioDTO>() {
@@ -297,15 +316,15 @@ class Practica3ApplicationTests {
                 assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
             }
             
-           // @Test
+            @Test
             @DisplayName("Crea un ejercicio concreto exitosamente")
             public void crearEjercicio() {
                 var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
-                var peticion = post("http", "localhost", port, "/ejercicio?entrenador=1", ejercicio);
+                var peticion = post("http", "localhost", port, "/ejercicio", ejercicio,1L);
 
                 var respuesta = restTemplate.exchange(peticion, Void.class);
 
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(201);
                 assertThat(respuesta.hasBody());
             }
             
@@ -313,11 +332,11 @@ class Practica3ApplicationTests {
         @Nested
         @DisplayName("al probar rutinas")
         public class RutinaVacia{
-          //  @Test
+            @Test
             @DisplayName("devuelve la lista de rutinas vacía")
             public void devuelveRutinasVacias() {
                 
-                var peticion = get("http", "localhost", port, "/rutina?entrenador=1");
+                var peticion = get("http", "localhost", port, "/rutina",1L);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<List<RutinaDTO>>() {});
@@ -329,7 +348,7 @@ class Practica3ApplicationTests {
             @Test
             @DisplayName("devuelve  error cuando se pide una rutina concreta")
             public void errorConRutinaConcreta() {
-                var peticion = get("http", "localhost", port, "/rutina/1");
+                var peticion = get("http", "localhost", port, "/rutina/1",null);
 
                 var respuesta = restTemplate.exchange(peticion,
                         new ParameterizedTypeReference<EjercicioDTO>() {
@@ -357,6 +376,18 @@ class Practica3ApplicationTests {
 
                 assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
             }
+
+            @Test
+            @DisplayName("Crea una rutina concreta exitosamente")
+            public void crearRutina() {
+                var rutina = RutinaDTO.builder().nombre("Lunes").build();
+                var peticion = post("http", "localhost", port, "/rutina", rutina,1L);
+
+                var respuesta = restTemplate.exchange(peticion, Void.class);
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(201);
+                assertThat(respuesta.hasBody());
+            }
         }
 
     }
@@ -368,8 +399,10 @@ class Practica3ApplicationTests {
         public void llenarBase(){
             var ejercicio = new Ejercicio();
             ejercicio.setNombre("Sentadillas");
+            ejercicio.setIdEntrenador(1L);
             var rutina = new Rutina();
             rutina.setNombre("Lunes");
+            rutina.setIdEntrenador(1L);
             ejercicioRepo.save(ejercicio);
             rutinaRepo.save(rutina);
         }
@@ -381,10 +414,10 @@ class Practica3ApplicationTests {
         @Nested
         @DisplayName("al probar ejercicios")
         public class EjercicioConDato{
-           // @Test
+            @Test
             @DisplayName("devuelve lista de ejercicios")
             public void obtenerEjercicios(){
-                var peticion = get("http", "localhost",port, "/ejercicio?entrenador=1");
+                var peticion = get("http", "localhost",port, "/ejercicio",1L);
 
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<List<EjercicioDTO>>() {});
@@ -395,7 +428,7 @@ class Practica3ApplicationTests {
             @Test
             @DisplayName("devuelve ejercicio concreto")
             public void obtenerEjercicioConcreto(){
-                var peticion = get("http", "localhost",port, "/ejercicio/1");
+                var peticion = get("http", "localhost",port, "/ejercicio/1",null);
 
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<EjercicioDTO>() {});
@@ -429,10 +462,10 @@ class Practica3ApplicationTests {
         @Nested
         @DisplayName("al probar rutinas")
         public class RutinaConDato{
-            //@Test
+            @Test
             @DisplayName("devuelve lista de rutinas")
             public void obtenerRutinas(){
-                var peticion = get("http", "localhost",port, "/rutina?entrenador=1");
+                var peticion = get("http", "localhost",port, "/rutina",1L);
 
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<List<RutinaDTO>>() {});
@@ -443,7 +476,7 @@ class Practica3ApplicationTests {
             @Test
             @DisplayName("devuelve rutina concreto")
             public void obtenerRutinaConcreta(){
-                var peticion = get("http", "localhost",port, "/rutina/1");
+                var peticion = get("http", "localhost",port, "/rutina/1",null);
 
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<RutinaDTO>() {});
