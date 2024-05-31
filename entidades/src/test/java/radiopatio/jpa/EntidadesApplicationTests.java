@@ -3,6 +3,7 @@ package radiopatio.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +33,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import radiopatio.jpa.dtos.EjercicioDTO;
 import radiopatio.jpa.dtos.RutinaDTO;
 import radiopatio.jpa.entidades.Ejercicio;
+import radiopatio.jpa.entidades.FragmentoRutina;
 import radiopatio.jpa.entidades.Rutina;
 import radiopatio.jpa.repositorios.EjercicioRepositorio;
 import radiopatio.jpa.repositorios.RutinaRepositorio;
@@ -400,11 +402,21 @@ class Practica3ApplicationTests {
             var ejercicio = new Ejercicio();
             ejercicio.setNombre("Sentadillas");
             ejercicio.setIdEntrenador(1L);
+            ejercicioRepo.save(ejercicio);
+            var ejercicioEnRutina = new Ejercicio();
+            ejercicioEnRutina.setNombre("Plancha");
+            ejercicio.setIdEntrenador(1L);
+            ejercicioRepo.save(ejercicioEnRutina);
             var rutina = new Rutina();
             rutina.setNombre("Lunes");
             rutina.setIdEntrenador(1L);
-            ejercicioRepo.save(ejercicio);
+            var frag = new FragmentoRutina();
+            frag.setEjercicio(ejercicio);
+            ArrayList<FragmentoRutina> list = new ArrayList<>();
+            list.add(frag);
+            rutina.setEjercicios(list);
             rutinaRepo.save(rutina);
+
         }
         @BeforeEach
         public void IniciarToken(){
@@ -436,9 +448,19 @@ class Practica3ApplicationTests {
 			assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
             }
             @Test
+            @DisplayName("borra ejercicio concreto perteneciente a rutina y da error")
+            public void borraEjercicioError(){
+                var peticion = delete("http", "localhost",port, "/ejercicio/1");
+
+			var respuesta = restTemplate.exchange(peticion,
+					new ParameterizedTypeReference<EjercicioDTO>() {});
+
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(417);
+            }
+            @Test
             @DisplayName("borra ejercicio concreto")
             public void borraEjercicioConcreto(){
-                var peticion = delete("http", "localhost",port, "/ejercicio/1");
+                var peticion = delete("http", "localhost",port, "/ejercicio/2");
 
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<EjercicioDTO>() {});
