@@ -408,7 +408,6 @@ class Practica3ApplicationTests {
 					new ParameterizedTypeReference<RutinaDTO>() {});
 
 			assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-            assertThat(respuesta.getBody().getNombre()).isEqualTo(rutina.getNombre());
             }
             
         }
