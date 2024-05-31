@@ -23,6 +23,7 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriBuilderFactory;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import radiopatio.jpa.dtos.EjercicioDTO;
 import radiopatio.jpa.dtos.RutinaDTO;
@@ -53,8 +54,8 @@ class Practica3ApplicationTests {
 	public void initializeDatabase() {
 		rutinaRepo.deleteAll();
 		ejercicioRepo.deleteAll();
-		userDetails = jwtUtil.createUserDetails("1", "", List.of("ROLE_USER"));
-		token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzE2NDczMTc3LCJleHAiOjE3MjAwNzMxNzd9.7tWskuEFkvIuPKHSyy9wTOczfK9LcwvV1sqhghyMAsImtNkL2KJZPpzG-e7SUF8ks-SI7rKkA7fBBU71MOCc4g";
+		userDetails = jwtUtil.createUserDetails("1234567890", "", List.of("ROLE_USER"));
+        token = jwtUtil.generateToken(userDetails);
 	}
 
     @Autowired
@@ -74,41 +75,50 @@ class Practica3ApplicationTests {
 	}
 
 	private RequestEntity<Void> get(String scheme, String host, int port, String path) {
-		URI uri = uri(scheme, host,port, path);
-		var peticion = RequestEntity.get(uri)
-				.accept(MediaType.APPLICATION_JSON)
-				.build();
-		return peticion;
+		URI uri = uri(scheme, host, port, path);
+        var peticion = RequestEntity.get(uri)
+            .header("Authorization", "Bearer " + token)
+            .build();
+        return peticion;
 	}
 
 	private RequestEntity<Void> delete(String scheme, String host, int port, String path) {
-		URI uri = uri(scheme, host,port, path);
-		var peticion = RequestEntity.delete(uri)
-				.build();
-		return peticion;
-	}
+		URI uri = uri(scheme, host, port, path);
+        var peticion = RequestEntity.delete(uri)
+            .header("Authorization", "Bearer " + token)
+            .build();
+        return peticion;
+    }
 
 	private <T> RequestEntity<T> post(String scheme, String host, int port, String path, T object) {
-		URI uri = uri(scheme, host,port, path);
-		var peticion = RequestEntity.post(uri)
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(object);
-		return peticion;
+		URI uri = uri(scheme, host, port, path);
+        var peticion = RequestEntity.post(uri).
+                contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + token)
+                .body(object);
+        return peticion;
 	}
 
 	private <T> RequestEntity<T> put(String scheme, String host, int port, String path, T object) {
-		URI uri = uri(scheme, host,port, path);
-		var peticion = RequestEntity.put(uri)
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(object);
-		return peticion;
-	}
+        URI uri = uri(scheme, host, port, path);
+        var peticion = RequestEntity.put(uri).
+                contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + token)
+                .body(object);
+        return peticion;
+    }
+	
 
 	private void compruebaCampos(Ejercicio expected, Ejercicio actual) {
 		assertThat(actual.getNombre()).isEqualTo(expected.getNombre());
 		assertThat(actual.getDescripcion()).isEqualTo(expected.getDescripcion());
 
 	}
+
+    //Parte 1: Token no valido
+    //Parte 2: Token valido (Prioritario)
+        // Parte 2.1 : Base de datos vacia
+        // Parte 2.2 : Base de datos llena
 
     @Nested
 	@DisplayName("cuando la base de datos esta vacia")
@@ -127,7 +137,7 @@ class Practica3ApplicationTests {
 		}
 
         @Test
-		@DisplayName("devuelve  error cuando se pide un ejercicio concreta")
+		@DisplayName("devuelve  error cuando se pide un ejercicio concreto")
 		public void errorConEjercicioConcreto() {
 			var peticion = get("http", "localhost", port, "/ejercicio/1");
 
@@ -180,3 +190,9 @@ class Practica3ApplicationTests {
 
 	
 }
+
+
+
+
+
+
