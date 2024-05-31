@@ -84,4 +84,55 @@ public class FragmentoRutina {
 	public String toString() {
 		return "FragmentoRutina [id=" + id + ", series=" + series + ", repeticiones=" + repeticiones + ", duracionMinutos=" + duracionMinutos + ", ejercicio=" + ejercicio.toString() +"]";
 	}
+
+    public static class FragmentoRutinaBuilder {
+        private Long id;
+        private Integer series;
+        private Integer repeticiones;
+        private Integer duracionMinutos;
+        private Ejercicio ejercicio;
+
+        FragmentoRutinaBuilder() {
+        }
+
+        public FragmentoRutinaBuilder id(final Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public FragmentoRutinaBuilder series(final Integer series) {
+            this.series = series;
+            return this;
+        }
+
+        public FragmentoRutinaBuilder repeticiones(final Integer repeticiones) {
+            this.repeticiones = repeticiones;
+            return this;
+        }
+
+        public FragmentoRutinaBuilder duracionMinutos(final Integer duracionMinutos) {
+            this.duracionMinutos = duracionMinutos;
+            return this;
+        }
+
+        public FragmentoRutinaBuilder ejercicio(final Ejercicio ejercicio) {
+            this.ejercicio = ejercicio;
+            return this;
+        }
+
+        public FragmentoRutina build() {
+            return new FragmentoRutina(this.id, this.series, this.repeticiones, this.duracionMinutos, this.ejercicio);
+        }
+
+        public String toString() {
+            return "FragmentoRutina.FragmentoRutinaBuilder(id=" + this.id + ", series=" + this.series + ", repeticiones=" + this.repeticiones + ", duracionMinutos=" + this.duracionMinutos + ", ejercicio=" + String.valueOf(this.ejercicio) + ")";
+        }
+    }
+    public FragmentoRutina() {
+    }
+
+    public static FragmentoRutinaBuilder builder() {
+        return new FragmentoRutinaBuilder();
+    }
+
 }

@@ -136,4 +136,84 @@ public class Ejercicio {
 		return "Ejercicio [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", observaciones=" + observaciones + ", tipo=" + tipo +
         ", musculosTrabajados=" + musculosTrabajados + ", material=" + material + ", dificultad=" + dificultad + ", idEntrenador=" + idEntrenador +"]";
 	}
+
+    public static class EjercicioBuilder {
+        private Long id;
+        private String nombre;
+        private String descripcion;
+        private String observaciones;
+        private String tipo;
+        private String musculosTrabajados;
+        private String material;
+        private String dificultad;
+        private List<String> multimedia;
+        private Long idEntrenador;
+
+        EjercicioBuilder() {
+        }
+
+        public EjercicioBuilder id(final Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public EjercicioBuilder nombre(final String nombre) {
+            this.nombre = nombre;
+            return this;
+        }
+
+        public EjercicioBuilder descripcion(final String descripcion) {
+            this.descripcion = descripcion;
+            return this;
+        }
+
+        public EjercicioBuilder observaciones(final String observaciones) {
+            this.observaciones = observaciones;
+            return this;
+        }
+
+        public EjercicioBuilder tipo(final String tipo) {
+            this.tipo = tipo;
+            return this;
+        }
+
+        public EjercicioBuilder musculosTrabajados(final String musculosTrabajados) {
+            this.musculosTrabajados = musculosTrabajados;
+            return this;
+        }
+
+        public EjercicioBuilder material(final String material) {
+            this.material = material;
+            return this;
+        }
+
+        public EjercicioBuilder dificultad(final String dificultad) {
+            this.dificultad = dificultad;
+            return this;
+        }
+
+        public EjercicioBuilder multimedia(final List<String> multimedia) {
+            this.multimedia = multimedia;
+            return this;
+        }
+
+        public EjercicioBuilder idEntrenador(final Long idEntrenador) {
+            this.idEntrenador = idEntrenador;
+            return this;
+        }
+
+        public Ejercicio build() {
+            return new Ejercicio(this.id, this.nombre, this.descripcion, this.observaciones, this.tipo, this.musculosTrabajados, this.material, this.dificultad, this.multimedia, this.idEntrenador);
+        }
+
+        public String toString() {
+            return "Ejercicio.EjercicioBuilder(id=" + this.id + ", nombre=" + this.nombre + ", descripcion=" + this.descripcion + ", observaciones=" + this.observaciones + ", tipo=" + this.tipo + ", musculosTrabajados=" + this.musculosTrabajados + ", material=" + this.material + ", dificultad=" + this.dificultad + ", multimedia=" + String.valueOf(this.multimedia) + ", idEntrenador=" + this.idEntrenador + ")";
+        }
+    }
+    public Ejercicio() {
+    }
+
+    public static EjercicioBuilder builder() {
+        return new EjercicioBuilder();
+    }
 }
