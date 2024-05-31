@@ -26,12 +26,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import radiopatio.jpa.dtos.EjercicioDTO;
 import radiopatio.jpa.dtos.RutinaDTO;
 import radiopatio.jpa.dtos.RutinaNuevaDTO;
-import radiopatio.jpa.entidades.Ejercicio;
 import radiopatio.jpa.entidades.Rutina;
-import radiopatio.jpa.exceptions.EjercicioNoEncontradoException;
 import radiopatio.jpa.exceptions.RutinaNoEncontradaException;
 import radiopatio.jpa.servicios.RutinaService;
 

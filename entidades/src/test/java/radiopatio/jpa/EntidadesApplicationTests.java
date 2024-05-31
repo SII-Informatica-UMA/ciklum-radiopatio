@@ -3,7 +3,6 @@ package radiopatio.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,8 +24,6 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import radiopatio.jpa.dtos.EjercicioDTO;
@@ -128,12 +125,6 @@ class Practica3ApplicationTests {
                 .body(object);
         return peticion;
     }
-	
-
-	private void compruebaCampos(Ejercicio expected, Ejercicio actual) {
-		assertThat(actual.getNombre()).isEqualTo(expected.getNombre());
-
-	}
 
     //Parte 1: Token no valido
     //Parte 2: Token valido (Prioritario)
@@ -509,10 +500,6 @@ class Practica3ApplicationTests {
         }
 
     }
-
-	
-
-
 	
 }
 

@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import radiopatio.jpa.entidades.Ejercicio;
 import radiopatio.jpa.entidades.Rutina;
 import radiopatio.jpa.exceptions.RutinaNoEncontradaException;
 import radiopatio.jpa.repositorios.RutinaRepositorio;
