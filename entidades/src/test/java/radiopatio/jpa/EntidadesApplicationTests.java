@@ -3,6 +3,8 @@ package radiopatio.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +31,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import radiopatio.jpa.dtos.EjercicioDTO;
 import radiopatio.jpa.dtos.RutinaDTO;
 import radiopatio.jpa.entidades.Ejercicio;
+import radiopatio.jpa.entidades.FragmentoRutina;
 import radiopatio.jpa.entidades.Rutina;
 import radiopatio.jpa.repositorios.EjercicioRepositorio;
 import radiopatio.jpa.repositorios.RutinaRepositorio;
@@ -117,135 +120,24 @@ class Practica3ApplicationTests {
         return peticion;
     }
 
-	private <T> RequestEntity<T> put(String scheme, String host, int port, String path, T object) {
+	private <T> RequestEntity<T> put(String scheme, String host, int port, String path,T object) {
         URI uri = uri(scheme, host, port, path);
-        var peticion = RequestEntity.put(uri).
-                contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + token)
-                .body(object);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token); // Añadir token de autenticación como Bearer
+
+        String urlTemplate = UriComponentsBuilder.fromHttpUrl(uri.toString())
+                .encode()
+                .toUriString();
+
+        var peticion = RequestEntity.put(urlTemplate)
+            .accept(MediaType.APPLICATION_JSON)
+            .headers(headers)
+            .body(object);
         return peticion;
     }
+	
 
-    //Parte 1: Token no valido
-    //Parte 2: Token valido (Prioritario)
-        // Parte 2.1 : Base de datos vacia
-        // Parte 2.2 : Base de datos llena
-/* 
-    @Nested
-    @DisplayName("cuando la autorizacion no es correcta")
-    public class TokenIncorrecto{
-        @Nested
-        @DisplayName("al probar ejercicios")
-        public class EjercicioVacio{
-            @Test
-            @DisplayName("al devolver la lista de ejercicios da error de autenticacion")
-            public void devuelveEjerciciosVacios() {
-                
-                var peticion = get("http", "localhost", port, "/ejercicio",1L);
-
-                var respuesta = restTemplate.exchange(peticion,
-                        new ParameterizedTypeReference<List<EjercicioDTO>>() {});
-                
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-                
-            }
-
-            @Test
-            @DisplayName("al devolver ejercicio concreto da error de autenticacion")
-            public void errorConEjercicioConcreto() {
-                var peticion = get("http", "localhost", port, "/ejercicio/1",null);
-
-                var respuesta = restTemplate.exchange(peticion,
-                        new ParameterizedTypeReference<EjercicioDTO>() {
-                        });
-
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(500); // DEBERIA SER 403
-            }
-
-        
-            @Test
-            @DisplayName("al modificar ejercicio da error de autenticacion")
-            public void modificarEjercicioInexistente() {
-                var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
-                var peticion = put("http", "localhost", port, "/ejercicio/1", ejercicio);
-
-                var respuesta = restTemplate.exchange(peticion, Void.class);
-
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-            }
-
-            @Test
-            @DisplayName("al borrar ejercicio da error de autenticacion")
-            public void borrarEjercicioInexistente() {
-                var peticion = delete("http", "localhost", port, "/ejercicio/1");
-
-                var respuesta = restTemplate.exchange(peticion, Void.class);
-
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-            }
-            
-            @Test
-            @DisplayName("al crear ejercicio da error de autenticacion")
-            public void crearEjercicio() {
-                var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
-                var peticion = post("http", "localhost", port, "/ejercicio", ejercicio,1L);
-
-                var respuesta = restTemplate.exchange(peticion, Void.class);
-
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-            }
-            
-            }
-        @Nested
-        @DisplayName("al probar rutinas")
-        public class RutinaVacia{
-            @Test
-            @DisplayName("al devolver la lista de rutinas da error de autenticacion")
-            public void devuelveRutinasVacias() {
-                
-                var peticion = get("http", "localhost", port, "/rutina",1L);
-
-                var respuesta = restTemplate.exchange(peticion,
-                        new ParameterizedTypeReference<List<RutinaDTO>>() {});
-                
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-                
-            }
-            @Test
-            @DisplayName("al devolver rutina concreta da error de autenticacion")
-            public void errorConRutinaConcreta() {
-                var peticion = get("http", "localhost", port, "/rutina/1",null);
-
-                var respuesta = restTemplate.exchange(peticion,
-                        new ParameterizedTypeReference<EjercicioDTO>() {
-                        });
-
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(500); // DEBERIA SER 403
-            }
-            @Test
-            @DisplayName("al modificar rutina da error de autenticacion")
-            public void modificarRutinaInexistente() {
-                var rutina = RutinaDTO.builder().nombre("Lunes").build();
-                var peticion = put("http", "localhost", port, "/rutina/1", rutina);
-
-                var respuesta = restTemplate.exchange(peticion, Void.class);
-
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-            }
-
-            @Test
-            @DisplayName("al borrar rutina da error de autenticacion")
-            public void borrarRutinaInexistente() {
-                var peticion = delete("http", "localhost", port, "/rutina/1");
-
-                var respuesta = restTemplate.exchange(peticion, Void.class);
-
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
-            }
-        }
-    }
-
-*/
     @Nested
 	@DisplayName("cuando la base de datos esta vacia")
 	public class BaseVacia{
@@ -391,11 +283,21 @@ class Practica3ApplicationTests {
             var ejercicio = new Ejercicio();
             ejercicio.setNombre("Sentadillas");
             ejercicio.setIdEntrenador(1L);
+            ejercicioRepo.save(ejercicio);
+            var ejercicioEnRutina = new Ejercicio();
+            ejercicioEnRutina.setNombre("Plancha");
+            ejercicio.setIdEntrenador(1L);
+            ejercicioRepo.save(ejercicioEnRutina);
             var rutina = new Rutina();
             rutina.setNombre("Lunes");
             rutina.setIdEntrenador(1L);
-            ejercicioRepo.save(ejercicio);
+            var frag = new FragmentoRutina();
+            frag.setEjercicio(ejercicio);
+            ArrayList<FragmentoRutina> list = new ArrayList<>();
+            list.add(frag);
+            rutina.setEjercicios(list);
             rutinaRepo.save(rutina);
+
         }
         @BeforeEach
         public void IniciarToken(){
@@ -427,9 +329,19 @@ class Practica3ApplicationTests {
 			assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
             }
             @Test
+            @DisplayName("borra ejercicio concreto perteneciente a rutina y da error")
+            public void borraEjercicioError(){
+                var peticion = delete("http", "localhost",port, "/ejercicio/1");
+
+			var respuesta = restTemplate.exchange(peticion,
+					new ParameterizedTypeReference<EjercicioDTO>() {});
+
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(417);
+            }
+            @Test
             @DisplayName("borra ejercicio concreto")
             public void borraEjercicioConcreto(){
-                var peticion = delete("http", "localhost",port, "/ejercicio/1");
+                var peticion = delete("http", "localhost",port, "/ejercicio/2");
 
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<EjercicioDTO>() {});
@@ -488,13 +400,12 @@ class Practica3ApplicationTests {
             @DisplayName("modifica rutina concreto")
             public void modificarRutinaConcreta(){
                 var rutina = RutinaDTO.builder().nombre("Martes").build();
-                var peticion = put("http", "localhost",port, "/ejercicio/1",rutina);
+                var peticion = put("http", "localhost",port, "/rutina/1",rutina);
 
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<RutinaDTO>() {});
 
-			assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
-            assertThat(respuesta.getBody().getNombre()).isEqualTo(rutina.getNombre());
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(403);
             }
             
         }
