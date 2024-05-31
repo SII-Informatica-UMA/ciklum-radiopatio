@@ -133,9 +133,10 @@ class Practica3ApplicationTests {
                 var peticion = get("http", "localhost", port, "/ejercicio?entrenador=1");
 
                 var respuesta = restTemplate.exchange(peticion,
-                        new ParameterizedTypeReference<EjercicioDTO>() {});
+                        new ParameterizedTypeReference<List<EjercicioDTO>>() {});
                 
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
+                assertThat(respuesta.getBody()).isEmpty();
                 
             }
 
@@ -196,9 +197,10 @@ class Practica3ApplicationTests {
                 var peticion = get("http", "localhost", port, "/rutina?entrenador=1");
 
                 var respuesta = restTemplate.exchange(peticion,
-                        new ParameterizedTypeReference<EjercicioDTO>() {});
+                        new ParameterizedTypeReference<List<RutinaDTO>>() {});
                 
-                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
+                assertThat(respuesta.getBody()).isEmpty();
                 
             }
             @Test
