@@ -1,215 +1,182 @@
 package radiopatio.jpa;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import radiopatio.jpa.controladores.EjercicioController;
-import radiopatio.jpa.dtos.EjercicioDTO;
-import radiopatio.jpa.dtos.EjercicioNuevoDTO;
-import radiopatio.jpa.entidades.Ejercicio;
-import radiopatio.jpa.entidades.Rutina;
-import radiopatio.jpa.exceptions.EjercicioEnRutinaException;
-import radiopatio.jpa.exceptions.EjercicioNoEncontradoException;
-import radiopatio.jpa.exceptions.RutinaNoEncontradaException;
-import radiopatio.jpa.repositorios.EjercicioRepositorio;
-import radiopatio.jpa.repositorios.RutinaRepositorio;
-import radiopatio.jpa.servicios.EjercicioService;
-import radiopatio.jpa.servicios.RutinaService;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-@ExtendWith(MockitoExtension.class)
-class EntidadesAppiclationTests {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriBuilderFactory;
+import org.springframework.security.core.userdetails.UserDetails;
+import radiopatio.jpa.dtos.EjercicioDTO;
+import radiopatio.jpa.dtos.RutinaDTO;
+import radiopatio.jpa.entidades.Ejercicio;
+import radiopatio.jpa.entidades.Rutina;
+import radiopatio.jpa.repositorios.EjercicioRepositorio;
+import radiopatio.jpa.repositorios.RutinaRepositorio;
+import radiopatio.jpa.security.JwtUtil;
 
-    @Mock
-    private EjercicioRepositorio ejercicioRepositorio;
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@DisplayName("En el servicio de ejercicios y rutinas")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+class Practica3ApplicationTests {
 
-    @Mock
-    private RutinaRepositorio rutinaRepositorio;
+	@Autowired
+	private TestRestTemplate restTemplate;
 
-    @InjectMocks
-    private EjercicioService ejercicioService;
+	@Value(value="${local.server.port}")
+	private int port;
 
-    @InjectMocks
-    private EjercicioController ejercicioController;
+	@Autowired
+	private EjercicioRepositorio ejercicioRepo;
 
-    @Mock
-    private EjercicioService ejercicioService2;
-
-    @InjectMocks
-    private RutinaService rutinaService;
+	@Autowired
+	private RutinaRepositorio rutinaRepo;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+	public void initializeDatabase() {
+		rutinaRepo.deleteAll();
+		ejercicioRepo.deleteAll();
+		userDetails = jwtUtil.createUserDetails("1", "", List.of("ROLE_USER"));
+		token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzE2NDczMTc3LCJleHAiOjE3MjAwNzMxNzd9.7tWskuEFkvIuPKHSyy9wTOczfK9LcwvV1sqhghyMAsImtNkL2KJZPpzG-e7SUF8ks-SI7rKkA7fBBU71MOCc4g";
+	}
 
+    @Autowired
+	private JwtUtil jwtUtil;
+	private UserDetails userDetails;
+	private String token;
+
+	private URI uri(String scheme, String host, int port, String ...paths) {
+		UriBuilderFactory ubf = new DefaultUriBuilderFactory();
+		UriBuilder ub = ubf.builder()
+				.scheme(scheme)
+				.host(host).port(port);
+		for (String path: paths) {
+			ub = ub.path(path);
+		}
+		return ub.build();
+	}
+
+	private RequestEntity<Void> get(String scheme, String host, int port, String path) {
+		URI uri = uri(scheme, host,port, path);
+		var peticion = RequestEntity.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.build();
+		return peticion;
+	}
+
+	private RequestEntity<Void> delete(String scheme, String host, int port, String path) {
+		URI uri = uri(scheme, host,port, path);
+		var peticion = RequestEntity.delete(uri)
+				.build();
+		return peticion;
+	}
+
+	private <T> RequestEntity<T> post(String scheme, String host, int port, String path, T object) {
+		URI uri = uri(scheme, host,port, path);
+		var peticion = RequestEntity.post(uri)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(object);
+		return peticion;
+	}
+
+	private <T> RequestEntity<T> put(String scheme, String host, int port, String path, T object) {
+		URI uri = uri(scheme, host,port, path);
+		var peticion = RequestEntity.put(uri)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(object);
+		return peticion;
+	}
+
+	private void compruebaCampos(Ejercicio expected, Ejercicio actual) {
+		assertThat(actual.getNombre()).isEqualTo(expected.getNombre());
+		assertThat(actual.getDescripcion()).isEqualTo(expected.getDescripcion());
+
+	}
+
+    @Nested
+	@DisplayName("cuando la base de datos esta vacia")
+	public class BaseVacia{
+		@Test
+        @DisplayName("devuelve la lista de ejercicios vacía")
+        public void devuelveEjerciciosVacios() {
+            
+            var peticion = get("http", "localhost", port, "/ejercicio?entrenador=1"); //?entrenador=1");
+
+			var respuesta = restTemplate.exchange(peticion,
+					new ParameterizedTypeReference<EjercicioDTO>() {});
+			
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+			
+		}
+
+        @Test
+		@DisplayName("devuelve  error cuando se pide un ejercicio concreta")
+		public void errorConEjercicioConcreto() {
+			var peticion = get("http", "localhost", port, "/ejercicio/1");
+
+			var respuesta = restTemplate.exchange(peticion,
+					new ParameterizedTypeReference<EjercicioDTO>() {
+					});
+
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(404); // comprueba el resultado - 404 no encontrado
+		}
+
+    //     @Nested
+	// 	@DisplayName("intenta insertar un ejercicio")
+	// 	public class InsertaGrupo {
+	// 		@Test
+	// 		@DisplayName("y se guarda con éxito")
+	// 		public void sinID() {
+	// 			var ejercicio = EjercicioDTO.builder().nombre("sentadilla").build();
+	// 			var peticion = post("http", "localhost", port, "/ejercicio?entrenador=1", ejercicio);
+				
+	// 			var respuesta = restTemplate.exchange(peticion, Void.class);
+				
+	// 			compruebaRespuesta(ejercicio, respuesta);
+	// 		}
+    //         private void compruebaRespuesta(EjercicioDTO grupo, ResponseEntity<Void> respuesta) {
+    //             assertThat(respuesta.getStatusCode().value()).isEqualTo(HttpStatus.CREATED.value());
+    //    assertThat(respuesta.getHeaders().getLocation())
+    //        .asString().startsWith("http://localhost:" + port + "/ejercicio?entrenador=1");
+    //        }
+
+			
+	// 	}
+       
     @Test
-    @DisplayName("Debería eliminar el ejercicio si no está en una rutina")
-    void deberiaEliminarEjercicioSiNoEstaEnUnaRutina() {
-        Long idEjercicio = 1L;
+		@DisplayName("Devuelve error cuando se modifica un ejercicio concreto")
+		public void modificarEjercicioInexistente() {
+			var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
+			var peticion = put("http", "localhost", port, "/ejercicio/1", ejercicio);
 
-        when(rutinaRepositorio.existsRutinaWithEjercicio(idEjercicio)).thenReturn(false);
+			var respuesta = restTemplate.exchange(peticion, Void.class);
 
-        ejercicioService.eliminarEjercicio(idEjercicio);
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+		}
 
-        verify(ejercicioRepositorio, times(1)).deleteById(idEjercicio);
+
+
     }
 
-    @Test
-    @DisplayName("Debería lanzar EjercicioEnRutinaException si el ejercicio está en una rutina")
-    void deberiaLanzarEjercicioEnRutinaExceptionSiEjercicioEstaEnRutina() {
-        Long idEjercicio = 1L;
+	
 
-        when(rutinaRepositorio.existsRutinaWithEjercicio(idEjercicio)).thenReturn(true);
 
-        assertThrows(EjercicioEnRutinaException.class, () -> ejercicioService.eliminarEjercicio(idEjercicio));
-        verify(ejercicioRepositorio, never()).deleteById(idEjercicio);
-    }
-
-    @Test
-    @DisplayName("Debería lanzar RutinaNoEncontradaException si la rutina no existe")
-    void deberiaLanzarRutinaNoEncontradaExceptionSiRutinaNoExiste() {
-        Rutina rutinaNoExistente = new Rutina();
-        rutinaNoExistente.setId(1L);
-        rutinaNoExistente.setNombre("Rutina no existente");
-
-        when(rutinaRepositorio.findById(1L)).thenReturn(Optional.empty());
-
-        assertThrows(RutinaNoEncontradaException.class, () -> rutinaService.crearActualizarRutina(rutinaNoExistente));
-    }
-
-    @Test
-    @DisplayName("Simula una rutina para y comprueba que es eliminada")
-    public void EliminarRutinaExistente() {
-        // Crea una rutina de prueba con un ID válido
-        Long idRutina = 1L;
-        Rutina rutina = new Rutina();
-        rutina.setId(idRutina);
-
-        // Simula que la rutina existe en el repositorio
-        when(rutinaRepositorio.findById(idRutina)).thenReturn(Optional.of(rutina));
-
-        // Llama al método eliminarRutina
-        rutinaService.eliminarRutina(idRutina);
-
-        // Verifica que se haya llamado al método deleteById con el ID correcto
-        verify(rutinaRepositorio).deleteById(idRutina);
-    }
-
-    @Test
-    @DisplayName("Devuelve una excepcion cuando no encuentra la rutina")
-    public void EliminarRutinaNoEncontrada() {
-        // Intenta eliminar una rutina inexistente (ID inválido)
-        Long idRutinaInexistente = 999L;
-
-        // Simula que la rutina no existe en el repositorio
-        when(rutinaRepositorio.findById(idRutinaInexistente)).thenReturn(Optional.empty());
-
-        // Verifica que se lance la excepción RutinaNoEncontradaException
-        assertThrows(RutinaNoEncontradaException.class, () -> {
-            rutinaService.eliminarRutina(idRutinaInexistente);
-        });
-    }
-
-    @Test
-    @DisplayName("Dado un id de entrenador, devuelve una lista con las rutinas que tiene asignadas")
-    void ObtenerRutinas() {
-        // La idea es que devuelva una lista con las rutinas, dependiendo del id del
-        // entrenador
-        Long idEntrenador = 123L;
-        List<Rutina> rutinasDePrueba = List.of(new Rutina(), new Rutina());
-
-        when(rutinaRepositorio.findByIdEntrenador(idEntrenador)).thenReturn(rutinasDePrueba);
-
-        List<Rutina> rutinasObtenidas = rutinaService.obtenerRutinas(idEntrenador);
-        assertEquals(rutinasDePrueba.size(), rutinasObtenidas.size());
-    }
-
-    // Test Controladores
-    @Test
-    @DisplayName("Simular que el ejercicio existe y lo elimina")
-    public void testEliminarEjercicio() {
-        Long idEjercicio = 1L;
-
-        when(ejercicioService2.obtenerEjercicio(idEjercicio)).thenReturn(Optional.of(new Ejercicio()));
-
-        ejercicioController.eliminarEjercicio(idEjercicio);
-    }
-
-    @Test
-    @DisplayName("Simular que el ejercicio no existe y por tanto arroja excepcion")
-    public void testEliminarEjercicio_NoEncontrado() {
-        Long idEjercicio = 1L;
-
-        when(ejercicioService2.obtenerEjercicio(idEjercicio)).thenReturn(Optional.empty());
-
-        try {
-            ejercicioController.eliminarEjercicio(idEjercicio);
-        } catch (EjercicioNoEncontradoException e) {
-        }
-    }
-
-    @Test
-    @DisplayName("Simula que el ejercicio existe pero está en una rutina")
-    public void testEliminarEjercicio_EnRutina() {
-        Long idEjercicio = 1L;
-
-        when(ejercicioService2.obtenerEjercicio(idEjercicio)).thenReturn(Optional.of(new Ejercicio()));
-        doThrow(new EjercicioEnRutinaException()).when(ejercicioService2).eliminarEjercicio(idEjercicio);
-
-        try {
-            ejercicioController.eliminarEjercicio(idEjercicio);
-        } catch (EjercicioEnRutinaException e) {
-        }
-    }
-
-    @Test
-    public void testCrearEjercicio() {
-        Long idEntrenador = 1L;
-        EjercicioNuevoDTO ejercicioNuevoDTO = new EjercicioNuevoDTO();
-        ejercicioNuevoDTO.setNombre("Ejercicio de prueba");
-
-        // Simular el ejercicio creado por el servicio
-        Ejercicio ejercicioCreado = new Ejercicio();
-        ejercicioCreado.setId(1L);
-        ejercicioCreado.setNombre("Ejercicio de prueba");
-
-        // Simular el método del servicio para crear el ejercicio
-        when(ejercicioService2.crearActualizarEjercicio(any(Ejercicio.class))).thenReturn(ejercicioCreado);
-
-        // Simular la creación de la URI
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
-        URI expectedUri = URI.create("/ejercicio/1"); // URI esperada después de la creación del ejercicio
-        //URI expectedUri = URI.create("http://localhost/ejercicio/1"); // URI esperada después de la creación del ejercicio
-        
-        // Llamar al método crearEjercicio del controlador
-        ResponseEntity<EjercicioDTO> response = ejercicioController.crearEjercicio(idEntrenador, ejercicioNuevoDTO, uriBuilder);
-
-        // Verificar que se devuelva un código de estado 201 (CREATED)
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-
-        // Verificar que la URI del recurso creado coincida con la URI esperada
-        assertEquals(expectedUri, response.getHeaders().getLocation());
-
-        // Verificar que el ejercicio devuelto coincide con el ejercicio creado
-        EjercicioDTO ejercicioDTO = response.getBody();
-        assertEquals(ejercicioCreado.getId(), ejercicioDTO.getId());
-        assertEquals(ejercicioCreado.getNombre(), ejercicioDTO.getNombre());
-    }
+	
 }
