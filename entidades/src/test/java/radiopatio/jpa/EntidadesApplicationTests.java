@@ -54,7 +54,7 @@ class Practica3ApplicationTests {
 	public void initializeDatabase() {
 		rutinaRepo.deleteAll();
 		ejercicioRepo.deleteAll();
-		userDetails = jwtUtil.createUserDetails("1234567890", "", List.of("ROLE_USER"));
+		userDetails = jwtUtil.createUserDetails("1", "", List.of("ROLE_USER"));
         token = jwtUtil.generateToken(userDetails);
 	}
 
@@ -123,65 +123,147 @@ class Practica3ApplicationTests {
     @Nested
 	@DisplayName("cuando la base de datos esta vacia")
 	public class BaseVacia{
-		@Test
-        @DisplayName("devuelve la lista de ejercicios vacía")
-        public void devuelveEjerciciosVacios() {
-            
-            var peticion = get("http", "localhost", port, "/ejercicio?entrenador=1"); //?entrenador=1");
+		@Nested
+        @DisplayName("al probar ejercicios")
+        public class EjercicioVacio{
+            @Test
+            @DisplayName("devuelve la lista de ejercicios vacía")
+            public void devuelveEjerciciosVacios() {
+                
+                var peticion = get("http", "localhost", port, "/ejercicio?entrenador=1");
+
+                var respuesta = restTemplate.exchange(peticion,
+                        new ParameterizedTypeReference<EjercicioDTO>() {});
+                
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+                
+            }
+
+            @Test
+            @DisplayName("devuelve  error cuando se pide un ejercicio concreto")
+            public void errorConEjercicioConcreto() {
+                var peticion = get("http", "localhost", port, "/ejercicio/1");
+
+                var respuesta = restTemplate.exchange(peticion,
+                        new ParameterizedTypeReference<EjercicioDTO>() {
+                        });
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404); // comprueba el resultado - 404 no encontrado
+            }
+
+        
+            @Test
+            @DisplayName("Devuelve error cuando se modifica un ejercicio concreto")
+            public void modificarEjercicioInexistente() {
+                var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
+                var peticion = put("http", "localhost", port, "/ejercicio/1", ejercicio);
+
+                var respuesta = restTemplate.exchange(peticion, Void.class);
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+            }
+
+            @Test
+            @DisplayName("Devuelve error cuando se borra un ejercicio concreto")
+            public void borrarEjercicioInexistente() {
+                var peticion = delete("http", "localhost", port, "/ejercicio/1");
+
+                var respuesta = restTemplate.exchange(peticion, Void.class);
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+            }
+            /* 
+            @Test
+            @DisplayName("Crea un ejercicio concreto exitosamente")
+            public void crearEjercicio() {
+                var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
+                var peticion = post("http", "localhost", port, "/ejercicio", ejercicio);
+
+                var respuesta = restTemplate.exchange(peticion, Void.class);
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
+                assertThat(respuesta.hasBody());
+            }
+            */
+            }
+        @Nested
+        @DisplayName("al probar rutinas")
+        public class RutinaVacia{
+            @Test
+            @DisplayName("devuelve la lista de rutinas vacía")
+            public void devuelveRutinasVacias() {
+                
+                var peticion = get("http", "localhost", port, "/rutina?entrenador=1");
+
+                var respuesta = restTemplate.exchange(peticion,
+                        new ParameterizedTypeReference<EjercicioDTO>() {});
+                
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+                
+            }
+            @Test
+            @DisplayName("devuelve  error cuando se pide una rutina concreta")
+            public void errorConRutinaConcreta() {
+                var peticion = get("http", "localhost", port, "/rutina/1");
+
+                var respuesta = restTemplate.exchange(peticion,
+                        new ParameterizedTypeReference<EjercicioDTO>() {
+                        });
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404); // comprueba el resultado - 404 no encontrado
+            }
+            @Test
+            @DisplayName("Devuelve error cuando se modifica una rutina concreta")
+            public void modificarRutinaInexistente() {
+                var rutina = RutinaDTO.builder().nombre("Lunes").build();
+                var peticion = put("http", "localhost", port, "/rutina/1", rutina);
+
+                var respuesta = restTemplate.exchange(peticion, Void.class);
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+            }
+
+            @Test
+            @DisplayName("Devuelve error cuando se borra una rutina concreta")
+            public void borrarRutinaInexistente() {
+                var peticion = delete("http", "localhost", port, "/rutina/1");
+
+                var respuesta = restTemplate.exchange(peticion, Void.class);
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+            }
+        }
+
+    }
+
+    @Nested
+	@DisplayName("cuando la base de datos contiene datos")
+	public class BaseConDatos{
+        @BeforeEach
+        public void llenarBase(){
+            var ejercicio = new Ejercicio();
+            ejercicio.setNombre("Sentadillas");
+            var rutina = new Rutina();
+            rutina.setNombre("Lunes");
+            ejercicioRepo.save(ejercicio);
+            rutinaRepo.save(rutina);
+        }
+        @Nested
+        @DisplayName("al probar ejercicios")
+        public class EjercicioConDato{
+            @Test
+            @DisplayName("devuelve lista de ejercicios")
+            public void obtenerEjercicios(){
+                var peticion = get("http", "localhost",port, "/ejercicio?entrenador=1");
 
 			var respuesta = restTemplate.exchange(peticion,
-					new ParameterizedTypeReference<EjercicioDTO>() {});
-			
-			assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
-			
-		}
+					new ParameterizedTypeReference<List<EjercicioDTO>>() {});
 
-        @Test
-		@DisplayName("devuelve  error cuando se pide un ejercicio concreto")
-		public void errorConEjercicioConcreto() {
-			var peticion = get("http", "localhost", port, "/ejercicio/1");
-
-			var respuesta = restTemplate.exchange(peticion,
-					new ParameterizedTypeReference<EjercicioDTO>() {
-					});
-
-			assertThat(respuesta.getStatusCode().value()).isEqualTo(404); // comprueba el resultado - 404 no encontrado
-		}
-
-    //     @Nested
-	// 	@DisplayName("intenta insertar un ejercicio")
-	// 	public class InsertaGrupo {
-	// 		@Test
-	// 		@DisplayName("y se guarda con éxito")
-	// 		public void sinID() {
-	// 			var ejercicio = EjercicioDTO.builder().nombre("sentadilla").build();
-	// 			var peticion = post("http", "localhost", port, "/ejercicio?entrenador=1", ejercicio);
-				
-	// 			var respuesta = restTemplate.exchange(peticion, Void.class);
-				
-	// 			compruebaRespuesta(ejercicio, respuesta);
-	// 		}
-    //         private void compruebaRespuesta(EjercicioDTO grupo, ResponseEntity<Void> respuesta) {
-    //             assertThat(respuesta.getStatusCode().value()).isEqualTo(HttpStatus.CREATED.value());
-    //    assertThat(respuesta.getHeaders().getLocation())
-    //        .asString().startsWith("http://localhost:" + port + "/ejercicio?entrenador=1");
-    //        }
-
-			
-	// 	}
-       
-    @Test
-		@DisplayName("Devuelve error cuando se modifica un ejercicio concreto")
-		public void modificarEjercicioInexistente() {
-			var ejercicio = EjercicioDTO.builder().nombre("Sentadilla").build();
-			var peticion = put("http", "localhost", port, "/ejercicio/1", ejercicio);
-
-			var respuesta = restTemplate.exchange(peticion, Void.class);
-
-			assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
-		}
-
-
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
+			assertThat(respuesta.getBody().size()).isEqualTo(1);
+            }
+        }
+        
 
     }
 
