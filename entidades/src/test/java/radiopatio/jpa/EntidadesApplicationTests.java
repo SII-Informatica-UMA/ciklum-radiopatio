@@ -85,6 +85,7 @@ class Practica3ApplicationTests {
                 .build();
         return peticion;
     }
+    
 
     private RequestEntity<Void> delete(String scheme, String host, int port, String path) {
         URI uri = uri(scheme, host, port, path);
@@ -505,6 +506,29 @@ class Practica3ApplicationTests {
 
                 assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
                 assertThat(respuesta.getBody().getNombre()).isEqualTo(rutina.getNombre());
+            }
+
+            @Test
+            @DisplayName("crea una nueva rutina")
+            public void creaNuevaRutina() {
+                // Configura la nueva rutina
+                var nuevaRutina = RutinaDTO.builder().id(1L)
+                        .nombre("Rutina Nueva")
+                        .descripcion("Descripción de la nueva rutina")
+                        .observaciones("Observaciones")
+                        .build();
+
+                // Crea la solicitud POST
+                var peticion = post("http", "localhost", port, "/rutina", nuevaRutina);
+
+                // Envía la solicitud y verifica la respuesta
+                ResponseEntity<RutinaDTO> respuesta = restTemplate.exchange(peticion,
+                        new ParameterizedTypeReference<RutinaDTO>() {
+                        });
+
+                // Verifica que el estado de la respuesta es 201 Created
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(201);
+                assertThat(respuesta.getBody().getNombre()).isEqualTo(nuevaRutina.getNombre());
             }
 
         }
